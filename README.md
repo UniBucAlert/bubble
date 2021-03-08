@@ -14,4 +14,4 @@ Instant messaging platforms are everywhere. And you’ve probably seen someone t
 
 In other words, ***Bubble*** is all about **live texting**, reproducing a normal conversation in the online setting. 
 
-The user will, therefore, see exactly what the response is, ever since by the interlocutor types the first character.
+The user will, therefore, see exactly what the response is, ever since the interlocutor types its first character.
