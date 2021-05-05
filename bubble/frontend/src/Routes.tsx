@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Home, Login, SignUp, Protected, PrivateRoute } from './views';
+import { Login, SignUp, PrivateRoute } from './views';
 import { Admin } from './admin';
 import { logout } from './utils/auth';
 import { ChatView } from './views/ChatView';
