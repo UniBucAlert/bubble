@@ -5,6 +5,7 @@ import { Face, Fingerprint } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import  logo from '../assets/logo-text-inline.png';
 
 import { signUp, isAuthenticated } from '../utils/auth';
 
@@ -21,6 +22,21 @@ const useStyles = makeStyles((theme) => ({
   marginTop: {
     marginTop: 10,
   },
+  container: {
+    background: 'linear-gradient(30deg, rgba(0,23,36,1) 0%, rgba(0,232,220,1) 94%)',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 'calc(10px + 2vmin)',
+    color: 'white',
+  },
+  logo: {
+    paddingTop:20,
+    paddingBottom:20,
+    width:'100%'
+  }
 }));
 
 export const SignUp: FC = () => {
@@ -57,9 +73,12 @@ export const SignUp: FC = () => {
   return isAuthenticated() ? (
     <Redirect to="/" />
   ) : (
+    <div className={classes.container}>
     <Paper className={classes.padding}>
       <div className={classes.margin}>
-        <Grid container spacing={8} alignItems="flex-end">
+      <img className={classes.logo} src = {logo} alt="logo"></img>
+
+        <Grid container spacing={3} alignItems="flex-end">
           <Grid item>
             <Face />
           </Grid>
@@ -78,7 +97,7 @@ export const SignUp: FC = () => {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
+        <Grid container spacing={3} alignItems="flex-end">
           <Grid item>
             <Fingerprint />
           </Grid>
@@ -96,7 +115,7 @@ export const SignUp: FC = () => {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
+        <Grid container spacing={3} alignItems="flex-end">
           <Grid item>
             <Fingerprint />
           </Grid>
@@ -124,7 +143,7 @@ export const SignUp: FC = () => {
         </Grid>
         <Grid container justify="center" className={classes.marginTop}>
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
             className={classes.button}
             onClick={handleSubmit}
@@ -134,5 +153,6 @@ export const SignUp: FC = () => {
         </Grid>
       </div>
     </Paper>
+    </div>
   );
 };
