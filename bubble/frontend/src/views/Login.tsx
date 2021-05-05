@@ -8,10 +8,11 @@ import {
   Checkbox,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Face, Fingerprint } from '@material-ui/icons';
+import { Person, Fingerprint } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import  logo from '../assets/logo-text-inline.png';
 
 import { login, isAuthenticated } from '../utils/auth';
 
@@ -21,13 +22,31 @@ const useStyles = makeStyles((theme) => ({
   },
   padding: {
     padding: theme.spacing(1),
+
+    
   },
   button: {
     textTransform: 'none',
   },
   marginTop: {
-    marginTop: 10,
+    marginTop: 10
   },
+  container: {
+    background: 'linear-gradient(30deg, rgba(0,23,36,1) 0%, rgba(0,232,220,1) 94%)',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 'calc(10px + 2vmin)',
+    color: 'white',
+  },
+  logo: {
+    paddingTop:20,
+    paddingBottom:20,
+    width:'100%'
+  }
+  
 }));
 
 export const Login: FC = () => {
@@ -59,11 +78,13 @@ export const Login: FC = () => {
   return isAuthenticated() ? (
     <Redirect to="/" />
   ) : (
+    <div className={classes.container}>
     <Paper className={classes.padding}>
       <div className={classes.margin}>
-        <Grid container spacing={8} alignItems="flex-end">
+        <img className={classes.logo} src = {logo} alt="logo"></img>
+        <Grid container spacing={3} alignItems="flex-end">
           <Grid item>
-            <Face />
+            <Person />
           </Grid>
           <Grid item md={true} sm={true} xs={true}>
             <TextField
@@ -77,10 +98,11 @@ export const Login: FC = () => {
               fullWidth
               autoFocus
               required
+
             />
           </Grid>
         </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
+        <Grid container spacing={3} alignItems="flex-end">
           <Grid item>
             <Fingerprint />
           </Grid>
@@ -125,7 +147,7 @@ export const Login: FC = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container justify="center" className={classes.marginTop}>
+        <Grid container justify="space-around" className={classes.marginTop}>
           {' '}
           <Button
             variant="outlined"
@@ -137,7 +159,7 @@ export const Login: FC = () => {
           </Button>{' '}
           &nbsp;
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
             className={classes.button}
             onClick={handleSubmit}
@@ -147,5 +169,6 @@ export const Login: FC = () => {
         </Grid>
       </div>
     </Paper>
+    </div>
   );
 };

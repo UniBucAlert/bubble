@@ -6,21 +6,29 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Home, Login, SignUp, Protected, PrivateRoute } from './views';
 import { Admin } from './admin';
 import { logout } from './utils/auth';
+import { ChatView } from './views/ChatView';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import pink from '@material-ui/core/colors/pink';
+import teal from '@material-ui/core/colors/teal';
+
+// Theming componente Material UI
+// https://material-ui.com/customization/theming/
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: teal[500],
+    },
+    secondary: {
+      main: pink["A400"],
+    },
+    type: 'light'
+  },
+});
 
 const useStyles = makeStyles((theme) => ({
-  app: {
-    textAlign: 'center',
-  },
-  header: {
-    backgroundColor: '#282c34',
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 'calc(10px + 2vmin)',
-    color: 'white',
-  },
+
+  // Styling global custom
+  app : {}
 }));
 
 export const Routes: FC = () => {
@@ -33,22 +41,26 @@ export const Routes: FC = () => {
         <Admin />
       </Route>
 
+      <ThemeProvider theme={theme}>
       <div className={classes.app}>
-        <header className={classes.header}>
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
-          <Route
-            path="/logout"
-            render={() => {
-              logout();
-              history.push('/');
-              return null;
-            }}
-          />
-          <PrivateRoute path="/protected" component={Protected} />
-          <Route exact path="/" component={Home} />
-        </header>
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
+        <Route
+          path="/logout"
+          render={() => {
+            logout();
+            history.push('/');
+            return null;
+          }}
+        />
+        <PrivateRoute  path="/" component={ChatView} /> 
+
+        {/* in home e ecranul default din fastapi, TODO: sterge-l */}
+        {/* <Route exact path="/" component={Home} />  */}
+
       </div>
+      </ThemeProvider>
+
     </Switch>
   );
 };
