@@ -9,6 +9,8 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
 import logo from '../assets/logo-text-inline.png';
+import FriendsList from './components/FriendsList';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -87,7 +89,6 @@ export const ChatView: FC = () => {
 
     </Toolbar>
   </AppBar>
-    <h1>Aici va fi ecranul de chat</h1>
-
+    <FriendsList></FriendsList>
   </>
 };

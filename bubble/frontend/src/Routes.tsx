@@ -53,7 +53,7 @@ export const Routes: FC = () => {
             return null;
           }}
         />
-        <PrivateRoute  path="/" component={ChatView} /> 
+        <Route  path="/chat" component={ChatView} /> 
 
         {/* in home e ecranul default din fastapi, TODO: sterge-l */}
         {/* <Route exact path="/" component={Home} />  */}
@@ -62,5 +62,6 @@ export const Routes: FC = () => {
       </ThemeProvider>
 
     </Switch>
+
   );
 };
