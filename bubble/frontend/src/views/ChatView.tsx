@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { MenuProps } from '@material-ui/core/Menu/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
 import logo from '../assets/logo-text-inline.png';
@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 export const ChatView: FC = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = React.useState<MenuProps['anchorEl']>(null);
+  const open = !!anchorEl;
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);

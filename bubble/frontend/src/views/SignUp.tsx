@@ -89,9 +89,7 @@ export const SignUp: FC = () => {
                 label="Email"
                 type="email"
                 value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.currentTarget.value)
-                }
+                onChange={(e) => setEmail(e.currentTarget.value)}
                 fullWidth
                 autoFocus
                 required
@@ -108,9 +106,7 @@ export const SignUp: FC = () => {
                 label="Password"
                 type="password"
                 value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.currentTarget.value)
-                }
+                onChange={(e) => setPassword(e.currentTarget.value)}
                 fullWidth
                 required
               />
@@ -126,9 +122,7 @@ export const SignUp: FC = () => {
                 label="Confirm password"
                 type="password"
                 value={passwordConfirmation}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPasswordConfirmation(e.currentTarget.value)
-                }
+                onChange={(e) => setPasswordConfirmation(e.currentTarget.value)}
                 fullWidth
                 required
               />

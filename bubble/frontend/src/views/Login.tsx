@@ -90,9 +90,7 @@ export const Login: FC = () => {
                 label="Email"
                 type="email"
                 value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(e.currentTarget.value)
-                }
+                onChange={(e) => setEmail(e.currentTarget.value)}
                 fullWidth
                 autoFocus
                 required
@@ -109,9 +107,7 @@ export const Login: FC = () => {
                 label="Password"
                 type="password"
                 value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.currentTarget.value)
-                }
+                onChange={(e) => setPassword(e.currentTarget.value)}
                 fullWidth
                 required
               />
