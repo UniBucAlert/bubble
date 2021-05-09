@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { getMessage } from '../utils/api';
 import { isAuthenticated } from '../utils/auth';
 
-
 // Pe asta l am lasat aici ca exemplu, cand nu mai avem nevoie de el trebuie sters TODO
 const useStyles = makeStyles((theme) => ({
   link: {

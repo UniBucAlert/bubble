@@ -19,16 +19,15 @@ const theme = createMuiTheme({
       main: teal[500],
     },
     secondary: {
-      main: pink["A400"],
+      main: pink['A400'],
     },
-    type: 'light'
+    type: 'light',
   },
 });
 
 const useStyles = makeStyles((theme) => ({
-
   // Styling global custom
-  app : {}
+  app: {},
 }));
 
 export const Routes: FC = () => {
@@ -42,25 +41,23 @@ export const Routes: FC = () => {
       </Route>
 
       <ThemeProvider theme={theme}>
-      <div className={classes.app}>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
-        <Route
-          path="/logout"
-          render={() => {
-            logout();
-            history.push('/');
-            return null;
-          }}
-        />
-        <PrivateRoute  path="/" component={ChatView} /> 
+        <div className={classes.app}>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+          <Route
+            path="/logout"
+            render={() => {
+              logout();
+              history.push('/');
+              return null;
+            }}
+          />
+          <PrivateRoute path="/" component={ChatView} />
 
-        {/* in home e ecranul default din fastapi, TODO: sterge-l */}
-        {/* <Route exact path="/" component={Home} />  */}
-
-      </div>
+          {/* in home e ecranul default din fastapi, TODO: sterge-l */}
+          {/* <Route exact path="/" component={Home} />  */}
+        </div>
       </ThemeProvider>
-
     </Switch>
   );
 };
