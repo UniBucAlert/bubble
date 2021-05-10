@@ -17,24 +17,32 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+interface Props {
+    friends: { 'firstName': string, 'lastName': string, 'status': string }[]
+}
+
 function renderRow(props: ListChildComponentProps) {
-    const { index, style } = props;
+    const { data, index, style } = props;
 
     return (
         <ListItem button style={style} key={index}>
-            <Friend></Friend>
+            <Friend
+                firstName={data[index].firstName}
+                lastName={data[index].lastName}
+                status={data[index].status}
+            ></Friend>
         </ListItem>
     );
 }
 
-export default function FriendsList() {
+export default function FriendsList({ friends }: Props) {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <FriendsHeader></FriendsHeader>
             <Paper className={classes.root} elevation={3}>
-                <FixedSizeList height={700} width={300} itemSize={70} itemCount={200}>
+                <FixedSizeList height={700} width={300} itemSize={70} itemCount={friends.length} itemData={friends}>
                     {renderRow}
                 </FixedSizeList>
             </Paper>

@@ -2,7 +2,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import logo from '../../assets/active.png';
+import activeLogo from '../../assets/active.png';
+import inactiveLogo from '../../assets/inactive.png'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -16,16 +17,27 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: 20,
         height: 30,
         width: 30,
+        marginRight: 7,
     }
 }));
 
-function Friend() {
+interface Props {
+    firstName: string,
+    lastName: string,
+    status: string;
+}
+
+function Friend({ firstName, lastName, status }: Props) {
     const classes = useStyles();
 
     return (
         <div className={classes.container}>
-            <img className={classes.logo} src={logo} alt="logo"></img>
-            <ListItemText primary='&nbsp; Alexandru Tifui' />
+            {
+                status === "active" ?
+                <img className={classes.logo} src={activeLogo} alt="active-logo"></img> :
+                <img className={classes.logo} src={inactiveLogo} alt="inactive-logo"></img>
+            }
+            <ListItemText primary={`${firstName} ${lastName}`} />
         </div>
     )
 }

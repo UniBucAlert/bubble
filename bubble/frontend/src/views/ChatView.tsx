@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
+
 import logo from '../assets/logo-text-inline.png';
 import FriendsList from './components/FriendsList';
 
@@ -39,6 +40,10 @@ export const ChatView: FC = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [friends, setFriends] = React.useState([
+      {'firstName': 'John', 'lastName': 'Smith', 'status': 'active'},
+      { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' }
+    ]);
 
   const handleMenu = (event:any) => {
     setAnchorEl(event.currentTarget);
@@ -89,6 +94,6 @@ export const ChatView: FC = () => {
 
     </Toolbar>
   </AppBar>
-    <FriendsList></FriendsList>
+    <FriendsList friends={friends}></FriendsList>
   </>
 };
