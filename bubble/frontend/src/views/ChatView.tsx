@@ -33,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
+interface FriendsListType {
+    friends: { 'firstName': string, 'lastName': string, 'status': string }[]
+}
 
 export const ChatView: FC = () => {
   const classes = useStyles();
@@ -41,9 +43,9 @@ export const ChatView: FC = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [friends, setFriends] = React.useState([
-      {'firstName': 'John', 'lastName': 'Smith', 'status': 'active'},
-      { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' }
-    ]);
+    { 'firstName': 'John', 'lastName': 'Smith', 'status': 'active' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' }
+  ]);
 
   const handleMenu = (event:any) => {
     setAnchorEl(event.currentTarget);
@@ -97,3 +99,5 @@ export const ChatView: FC = () => {
     <FriendsList friends={friends}></FriendsList>
   </>
 };
+
+export default FriendsListType;

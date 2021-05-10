@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 
 import Search from './Search'
 import FriendButton from './FriendButton'
+import FriendsListType from '../ChatView';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -16,12 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function FriendsHeader() {
+function FriendsHeader({ friends }: FriendsListType) {
     const classes = useStyles();
 
     return (
         <Paper className={classes.root} elevation={3}>
-            <Search></Search>
+            <Search friends={friends}></Search>
             <FriendButton></FriendButton>
         </Paper>
     )

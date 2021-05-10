@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 
 import Friend from './Friend'
 import FriendsHeader from './FriendsHeader'
+import FriendsListType from '../ChatView'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -16,10 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-interface Props {
-    friends: { 'firstName': string, 'lastName': string, 'status': string }[]
-}
 
 function renderRow(props: ListChildComponentProps) {
     const { data, index, style } = props;
@@ -35,12 +32,12 @@ function renderRow(props: ListChildComponentProps) {
     );
 }
 
-export default function FriendsList({ friends }: Props) {
+export default function FriendsList({ friends }: FriendsListType) {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <FriendsHeader></FriendsHeader>
+            <FriendsHeader friends={friends}></FriendsHeader>
             <Paper className={classes.root} elevation={3}>
                 <FixedSizeList height={700} width={300} itemSize={70} itemCount={friends.length} itemData={friends}>
                     {renderRow}
