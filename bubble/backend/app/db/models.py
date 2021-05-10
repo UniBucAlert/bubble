@@ -1,6 +1,12 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, Table
+from sqlalchemy.orm import relation
 
 from .session import Base
+
+UserFriends = Table('UserFriends',
+                    Base.metadata,
+                    Column('user_id', Integer, ForeignKey('user.id')),
+                    Column('friend_id', Integer, ForeignKey('user.id')))
 
 
 class User(Base):
@@ -13,3 +19,8 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
+    friends = relation(
+                        'User', secondary=UserFriends,
+                        primaryjoin=UserFriends.c.user_id == id,
+                        secondaryjoin=UserFriends.c.friend_id == id,
+                        backref="friendOf")
