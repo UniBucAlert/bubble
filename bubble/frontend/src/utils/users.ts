@@ -1,6 +1,6 @@
 export const getUser = async () => {
 
-  const request = new Request('/api/users/me', {
+  const request = new Request('/api/v1/users/me', {
     method: 'GET',
     headers: {
       "Authorization": "Bearer " + localStorage.getItem('token')
