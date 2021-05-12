@@ -44,7 +44,28 @@ export const ChatView: FC = () => {
   const open = Boolean(anchorEl);
   const [friends, setFriends] = React.useState([
     { 'firstName': 'John', 'lastName': 'Smith', 'status': 'active' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' }
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
   ]);
 
   const handleMenu = (event:any) => {

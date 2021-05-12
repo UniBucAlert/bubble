@@ -42,7 +42,6 @@ export const Routes: FC = () => {
       </Route>
 
       <ThemeProvider theme={theme}>
-      <div className={classes.app}>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route
@@ -53,12 +52,11 @@ export const Routes: FC = () => {
             return null;
           }}
         />
-        <Route  path="/chat" component={ChatView} /> 
+        <PrivateRoute  path="/" component={ChatView} /> 
 
         {/* in home e ecranul default din fastapi, TODO: sterge-l */}
         {/* <Route exact path="/" component={Home} />  */}
 
-      </div>
       </ThemeProvider>
 
     </Switch>
