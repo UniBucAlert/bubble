@@ -19,16 +19,15 @@ const theme = createMuiTheme({
       main: teal[500],
     },
     secondary: {
-      main: pink["A400"],
+      main: pink['A400'],
     },
-    type: 'light'
+    type: 'light',
   },
 });
 
 const useStyles = makeStyles((theme) => ({
-
   // Styling global custom
-  app : {}
+  app: {},
 }));
 
 export const Routes: FC = () => {
@@ -58,7 +57,6 @@ export const Routes: FC = () => {
         {/* <Route exact path="/" component={Home} />  */}
 
       </ThemeProvider>
-
     </Switch>
 
   );

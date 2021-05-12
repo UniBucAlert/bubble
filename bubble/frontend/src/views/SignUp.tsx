@@ -5,7 +5,7 @@ import { Face, Fingerprint } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import  logo from '../assets/logo-text-inline.png';
+import logo from '../assets/logo-text-inline.png';
 
 import { signUp, isAuthenticated } from '../utils/auth';
 
@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
   },
   container: {
-    background: 'linear-gradient(30deg, rgba(0,23,36,1) 0%, rgba(0,232,220,1) 94%)',
+    background:
+      'linear-gradient(30deg, rgba(0,23,36,1) 0%, rgba(0,232,220,1) 94%)',
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
@@ -33,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   logo: {
-    paddingTop:20,
-    paddingBottom:20,
-    width:'100%'
-  }
+    paddingTop: 20,
+    paddingBottom: 20,
+    width: '100%',
+  },
 }));
 
 export const SignUp: FC = () => {
@@ -74,85 +75,79 @@ export const SignUp: FC = () => {
     <Redirect to="/" />
   ) : (
     <div className={classes.container}>
-    <Paper className={classes.padding}>
-      <div className={classes.margin}>
-      <img className={classes.logo} src = {logo} alt="logo"></img>
+      <Paper className={classes.padding}>
+        <div className={classes.margin}>
+          <img className={classes.logo} src={logo} alt="logo"></img>
 
-        <Grid container spacing={3} alignItems="flex-end">
-          <Grid item>
-            <Face />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.currentTarget.value)
-              }
-              fullWidth
-              autoFocus
-              required
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} alignItems="flex-end">
-          <Grid item>
-            <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.currentTarget.value)
-              }
-              fullWidth
-              required
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} alignItems="flex-end">
-          <Grid item>
-            <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
-            <TextField
-              id="passwordConfirmation"
-              label="Confirm password"
-              type="password"
-              value={passwordConfirmation}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPasswordConfirmation(e.currentTarget.value)
-              }
-              fullWidth
-              required
-            />
-          </Grid>
-        </Grid>
-        <br />
-        <Grid container alignItems="center">
-          {error && (
+          <Grid container spacing={3} alignItems="flex-end">
             <Grid item>
-              <Alert severity="error">{error}</Alert>
+              <Face />
             </Grid>
-          )}
-        </Grid>
-        <Grid container justify="center" className={classes.marginTop}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={handleSubmit}
-          >
-            Sign Up
-          </Button>
-        </Grid>
-      </div>
-    </Paper>
+            <Grid item md={true} sm={true} xs={true}>
+              <TextField
+                id="email"
+                label="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.currentTarget.value)}
+                fullWidth
+                autoFocus
+                required
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={3} alignItems="flex-end">
+            <Grid item>
+              <Fingerprint />
+            </Grid>
+            <Grid item md={true} sm={true} xs={true}>
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.currentTarget.value)}
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={3} alignItems="flex-end">
+            <Grid item>
+              <Fingerprint />
+            </Grid>
+            <Grid item md={true} sm={true} xs={true}>
+              <TextField
+                id="passwordConfirmation"
+                label="Confirm password"
+                type="password"
+                value={passwordConfirmation}
+                onChange={(e) => setPasswordConfirmation(e.currentTarget.value)}
+                fullWidth
+                required
+              />
+            </Grid>
+          </Grid>
+          <br />
+          <Grid container alignItems="center">
+            {error && (
+              <Grid item>
+                <Alert severity="error">{error}</Alert>
+              </Grid>
+            )}
+          </Grid>
+          <Grid container justify="center" className={classes.marginTop}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={handleSubmit}
+            >
+              Sign Up
+            </Button>
+          </Grid>
+        </div>
+      </Paper>
     </div>
   );
 };
