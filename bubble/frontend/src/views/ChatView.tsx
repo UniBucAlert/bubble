@@ -8,10 +8,18 @@ import Menu from '@material-ui/core/Menu';
 import { MenuProps } from '@material-ui/core/Menu/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
+import Grid from '@material-ui/core/Grid';
+
 import logo from '../assets/logo-text-inline.png';
+import FriendsList from './components/FriendsList';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+      width: '100%',
+      height: '100vh',
+      backgroundColor:"blue"
+
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -29,11 +37,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface FriendsListType {
+    friends: { 'firstName': string, 'lastName': string, 'status': string }[]
+}
+
 export const ChatView: FC = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState<MenuProps['anchorEl']>(null);
-  const open = !!anchorEl;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const [friends, setFriends] = React.useState([
+    { 'firstName': 'John', 'lastName': 'Smith', 'status': 'active' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
+  ]);
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -45,46 +82,57 @@ export const ChatView: FC = () => {
 
   const logout = () => {
     history.push('/logout');
-  };
+  }
+  
+  return <div className={classes.root}>
+  <AppBar className={classes.appbar} position="static">
+    <Toolbar variant="dense">
+        <img src={logo} className={classes.logo} />
+        <div className={classes.separator}></div>
+        <div>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={logout}>Log out</MenuItem>
+          </Menu>
+        </div>
 
-  return (
-    <>
-      <AppBar className={classes.appbar} position="static">
-        <Toolbar variant="dense">
-          <img src={logo} className={classes.logo} />
-          <div className={classes.separator}></div>
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={logout}>Log out</MenuItem>
-            </Menu>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <h1>Aici va fi ecranul de chat</h1>
-    </>
-  );
+    </Toolbar>
+  </AppBar>
+
+    {/* Layout al aplicatiei */}
+      <Grid container spacing={0} style={{height:"calc(100% - 48px)",width:"100%"}} xs={12}>
+            <Grid style={{height:"100%"}} item xs={2}>
+            <FriendsList friends={friends}></FriendsList>
+            </Grid>
+            <Grid style={{backgroundColor:"green", height:"100%"}} item xs={10}>
+              <div>Chat Area</div>
+            </Grid>
+        </Grid>
+    {/*  */}
+  </div>
 };
+
+export default FriendsListType;
