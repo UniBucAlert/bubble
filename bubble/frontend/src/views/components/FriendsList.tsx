@@ -38,7 +38,7 @@ export default function FriendsList({ friends }: FriendsListType) {
     const [height, setHeight] = useState(0);
     
     useEffect(() => {
-            setHeight(containerRef.current.getBoundingClientRect().height - 131) 
+            setHeight(containerRef.current.getBoundingClientRect().height - 120) 
         },[])
     
     return (
