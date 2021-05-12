@@ -8,6 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import { MenuProps } from '@material-ui/core/Menu/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
+import Grid from '@material-ui/core/Grid';
 
 import logo from '../assets/logo-text-inline.png';
 import FriendsList from './components/FriendsList';
@@ -15,6 +16,10 @@ import FriendsList from './components/FriendsList';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+      width: '100%',
+      height: '100vh',
+      backgroundColor:"blue"
+
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -79,7 +84,7 @@ export const ChatView: FC = () => {
     history.push('/logout');
   }
   
-  return <>
+  return <div className={classes.root}>
   <AppBar className={classes.appbar} position="static">
     <Toolbar variant="dense">
         <img src={logo} className={classes.logo} />
@@ -116,8 +121,18 @@ export const ChatView: FC = () => {
 
     </Toolbar>
   </AppBar>
-    <FriendsList friends={friends}></FriendsList>
-  </>
+
+    {/* Layout al aplicatiei */}
+      <Grid container spacing={0} style={{height:"calc(100% - 48px)",width:"100%"}} xs={12}>
+            <Grid style={{height:"100%"}} item xs={2}>
+            <FriendsList friends={friends}></FriendsList>
+            </Grid>
+            <Grid style={{backgroundColor:"green", height:"100%"}} item xs={10}>
+              <div>Chat Area</div>
+            </Grid>
+        </Grid>
+    {/*  */}
+  </div>
 };
 
 export default FriendsListType;

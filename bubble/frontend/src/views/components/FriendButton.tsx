@@ -19,7 +19,7 @@ function FriendButton() {
 
     return (
         <div className={classes.root}>
-            <Button variant='contained'>
+            <Button fullWidth={true} variant='contained'>
                 See message requests
             </Button>
         </div>
