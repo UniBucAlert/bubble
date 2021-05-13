@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Paper, Grid, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Face, Fingerprint } from '@material-ui/icons';
+import { AccountCircle, Face, Fingerprint } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router';
@@ -43,6 +43,8 @@ export const SignUp: FC = () => {
   const classes = useStyles();
   const history = useHistory();
   const [email, setEmail] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -53,7 +55,13 @@ export const SignUp: FC = () => {
     else {
       setError('');
       try {
-        const data = await signUp(email, password, passwordConfirmation);
+        const data = await signUp(
+          email, 
+          firstName,
+          lastName,
+          password, 
+          passwordConfirmation
+        );
 
         if (data) {
           history.push('/');
@@ -90,6 +98,44 @@ export const SignUp: FC = () => {
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.currentTarget.value)
+              }
+              fullWidth
+              autoFocus
+              required
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} alignItems="flex-end">
+          <Grid item>
+            <AccountCircle />
+          </Grid>
+          <Grid item md={true} sm={true} xs={true}>
+            <TextField
+              id="firstName"
+              label="First Name"
+              type="text"
+              value={firstName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFirstName(e.currentTarget.value)
+              }
+              fullWidth
+              autoFocus
+              required
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} alignItems="flex-end">
+          <Grid item>
+            <AccountCircle />
+          </Grid>
+          <Grid item md={true} sm={true} xs={true}>
+            <TextField
+              id="lastName"
+              label="Last Name"
+              type="text"
+              value={lastName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setLastName(e.currentTarget.value)
               }
               fullWidth
               autoFocus
