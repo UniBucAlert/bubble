@@ -12,8 +12,6 @@ export const getUser = async () => {
   if (response.status === 500) {
     throw new Error('Internal server error');
   }
-  console.log("Response aici");
-  console.log(response);
 
   const data = await response.json();
   if (response.status > 400 && response.status < 500) {

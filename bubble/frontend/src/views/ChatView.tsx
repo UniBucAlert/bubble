@@ -14,6 +14,7 @@ import logo from '../assets/logo-text-inline.png';
 
 import { getUser } from '../utils/users';
 import FriendsList from './components/FriendsList';
+import Profile from './components/Profile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,10 +86,11 @@ export const ChatView: FC = () => {
   };
 
   const handleProfile = () => {
-    // setAnchorEl(null);
+    setAnchorEl(null);
     const user = getUser();
-    console.log('hello din handle profile');
+
     console.log(user);
+    return <Profile></Profile>
   };
 
   const logout = () => {
