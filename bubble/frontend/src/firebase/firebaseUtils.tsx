@@ -16,6 +16,6 @@ firebase.initializeApp(FIREBASE_CONFIG);
 
 export let fireDb = firebase.firestore();
 
-export function getFirestoreTimestamp() {
+export function getServerTimestampField() {
   return firebase.firestore.FieldValue.serverTimestamp();
 };

@@ -8,6 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import { MenuProps } from '@material-ui/core/Menu/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
+import { BareChat } from '../firebase/chat';
 import logo from '../assets/logo-text-inline.png';
 
 
@@ -86,7 +87,9 @@ export const ChatView: FC = () => {
           </div>
         </Toolbar>
       </AppBar>
-      <h1>Aici va fi ecranul de chat</h1>
+      <BareChat meId = '1' otherId = '2'>
+        <h1>Aici va fi ecranul de chat</h1>
+      </BareChat>
     </>
   );
 };
