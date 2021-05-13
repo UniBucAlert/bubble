@@ -22,12 +22,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-    firstName: string,
-    lastName: string,
+    email: string,
     status: string;
 }
 
-function Friend({ firstName, lastName, status }: Props) {
+function Friend({ email, status }: Props) {
     const classes = useStyles();
 
     return (
@@ -37,7 +36,7 @@ function Friend({ firstName, lastName, status }: Props) {
                 <img className={classes.logo} src={activeLogo} alt="active-logo"></img> :
                 <img className={classes.logo} src={inactiveLogo} alt="inactive-logo"></img>
             }
-            <ListItemText primary={`${firstName} ${lastName}`} />
+            <ListItemText primary={`${email}`} />
         </div>
     )
 }
