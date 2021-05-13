@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv';
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router';
@@ -6,10 +7,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Login, SignUp, PrivateRoute } from './views';
 import { Admin } from './admin';
 import { logout } from './utils/auth';
+import { createChat } from "./firebase/chatting";
 import { ChatView } from './views/ChatView';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import teal from '@material-ui/core/colors/teal';
+
+
+// Import env variables
+dotenv.config();
 
 // Theming componente Material UI
 // https://material-ui.com/customization/theming/
@@ -33,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
 export const Routes: FC = () => {
   const classes = useStyles();
   const history = useHistory();
+
+  createChat(2, 1).then(data => console.log(data));
+  createChat(2, 2).then(data => console.log(data));
 
   return (
     <Switch>

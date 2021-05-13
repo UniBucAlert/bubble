@@ -12,11 +12,15 @@ The user will, therefore, see exactly what the response is, ever since the inter
 ## Who made Bubble?
 - Ciaușu Nicoleta
 - Preda Mihai-Dragoș
-- Radu Ștefan Octavian
+- Radu Ștefan-Octavian
 - Tudor Raluca
 - Țifui Alexandru
 
 ## Stack used
 
-- Front -> React
-- Back -> FastAPI (Flask pe steroizi)
+- Front
+  - React
+- Back
+  - FastAPI
+  - Postgres (users)
+  - Firebase (chatting)
