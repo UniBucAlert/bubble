@@ -13,13 +13,13 @@ import Grid from '@material-ui/core/Grid';
 import logo from '../assets/logo-text-inline.png';
 import FriendsList from './components/FriendsList';
 import { getFriends } from '../utils';
+import { User } from '../models/User.model';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
       width: '100%',
       height: '100vh',
-      backgroundColor:"blue"
 
   },
   menuButton: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface FriendsListType {
-    friends: { 'firstName': string, 'lastName': string, 'status': string }[]
+    friends: User[]
 }
 
 export const ChatView: FC = () => {
@@ -68,8 +68,8 @@ export const ChatView: FC = () => {
   const logout = () => {
     history.push('/logout');
   }
-  
-  getFriends()
+
+
   return <div className={classes.root}>
   <AppBar className={classes.appbar} position="static">
     <Toolbar variant="dense">
@@ -113,7 +113,7 @@ export const ChatView: FC = () => {
             <Grid style={{height:"100%"}} item xs={2}>
             <FriendsList friends={friends}></FriendsList>
             </Grid>
-            <Grid style={{backgroundColor:"green", height:"100%"}} item xs={10}>
+            <Grid style={{ height:"100%"}} item xs={10}>
               <div>Chat Area</div>
             </Grid>
         </Grid>

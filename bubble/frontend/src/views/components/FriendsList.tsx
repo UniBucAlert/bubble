@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 
 import Friend from './Friend'
 import FriendsHeader from './FriendsHeader'
-import FriendsListType from '../ChatView'
+import { User } from '../../models/User.model';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,29 +20,31 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function renderRow(props: ListChildComponentProps) {
     const { data, index, style } = props;
-
+    console.log(data,index)
     return (
         <ListItem button style={style} key={index}>
             <Friend
-                firstName={data[index].firstName}
-                lastName={data[index].lastName}
+                // firstName={data[index].firstName}
+                // lastName={data[index].lastName}
+                email = {data[index].email}
                 status={data[index].status}
             ></Friend>
         </ListItem>
     );
 }
 
-export default function FriendsList({ friends }: FriendsListType) {
+export default function FriendsList({friends} : any) {
     const classes = useStyles();
     const containerRef = useRef(document.createElement("div"));
     const [height, setHeight] = useState(0);
     
     useEffect(() => {
             setHeight(containerRef.current.getBoundingClientRect().height - 120) 
+            console.log(friends)
         },[])
-    
     return (
         <div className={classes.root} ref={containerRef}>
+            {/* {friends[0].email} */}
             <Paper square={true} elevation={3}>
             <FriendsHeader friends={friends}></FriendsHeader>
             <Divider />
