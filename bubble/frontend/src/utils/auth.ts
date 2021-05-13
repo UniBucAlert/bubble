@@ -82,6 +82,8 @@ export const signUp = async (
   const formData = new FormData();
   // OAuth2 expects form data, not JSON data
   formData.append('username', email);
+  formData.append('first_name', 'Ion');
+  formData.append('last_name', 'Ionescu');
   formData.append('password', password);
 
   const request = new Request('/api/signup', {
