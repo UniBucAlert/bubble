@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 
 import logo from '../assets/logo-text-inline.png';
 import FriendsList from './components/FriendsList';
+import { getFriends } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,32 +46,16 @@ export const ChatView: FC = () => {
   const classes = useStyles();
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [friends, setFriends] = React.useState([]);
+
   const open = Boolean(anchorEl);
-  const [friends, setFriends] = React.useState([
-    { 'firstName': 'John', 'lastName': 'Smith', 'status': 'active' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-  ]);
+
+  useEffect(() => {
+    getFriends().then((fl) => {
+      console.log(fl)
+      setFriends(fl)
+    })
+    }, []);
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -84,6 +69,7 @@ export const ChatView: FC = () => {
     history.push('/logout');
   }
   
+  getFriends()
   return <div className={classes.root}>
   <AppBar className={classes.appbar} position="static">
     <Toolbar variant="dense">
