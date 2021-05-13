@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/lab": "^4.0.0-alpha.54",
     "axios": "^0.21.1",
+    "babel-jest": "^24.9.0",
     "bootstrap": "^5.0.0",
     "jwt-decode": "^3.0.0",
     "ra-data-json-server": "^3.5.2",
@@ -15,7 +16,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.3",
     "react-truncate": "^2.4.0",
-    "react-window": "^1.8.6",
     "standard": "^14.3.3"
   },
   "scripts": {
@@ -61,6 +61,7 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1",
+    "react-window": "^1.8.6",
     "typescript": "^4.0.2"
   }
 }
