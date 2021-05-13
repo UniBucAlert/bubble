@@ -9,6 +9,8 @@ import { MenuProps } from '@material-ui/core/Menu/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router';
 import logo from '../assets/logo-text-inline.png';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

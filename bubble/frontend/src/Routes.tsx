@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Login, SignUp, PrivateRoute } from './views';
 import { Admin } from './admin';
 import { logout } from './utils/auth';
-import { createChat } from "./firebase/chatting";
+import { createChat, sendMessage } from "./firebase/chatting";
 import { ChatView } from './views/ChatView';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
@@ -40,8 +40,11 @@ export const Routes: FC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  createChat(2, 1).then(data => console.log(data));
-  createChat(2, 2).then(data => console.log(data));
+  // createChat(2, 1).then(chatId => {
+  //   console.log(chatId);
+  //   // sendMessage(chatId, 1, "salut")
+  //   //   .then((ret) => ret ? console.log('sent') : console.log('blah'));
+  // });
 
   return (
     <Switch>
