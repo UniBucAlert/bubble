@@ -1,13 +1,19 @@
 import { BACKEND_URL } from '../config';
+import { User } from '../models/User.model';
 
-export const getMessage = async () => {
-  const response = await fetch(BACKEND_URL);
+const authHeader = {
+  'Authorization': 'Bearer ' + localStorage.getItem('token')
+};
 
-  const data = await response.json();
+export const getFriendsList = async () => {
+  const res = await fetch(BACKEND_URL + "/friends", {
+    headers: authHeader
+  })
 
-  if (data.message) {
-    return data.message;
+  const data = await res.json()
+  if (data) {
+    return data;
   }
 
-  return Promise.reject('Failed to get message from backend');
-};
+  return Promise.reject('Eroare');
+}

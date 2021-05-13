@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,13 +12,14 @@ import Grid from '@material-ui/core/Grid';
 
 import logo from '../assets/logo-text-inline.png';
 import FriendsList from './components/FriendsList';
+import { getFriendsList } from '../utils';
+import { User } from '../models/User.model';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
       width: '100%',
       height: '100vh',
-      backgroundColor:"blue"
 
   },
   menuButton: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface FriendsListType {
-    friends: { 'firstName': string, 'lastName': string, 'status': string }[]
+    friends: User[]
 }
 
 export const ChatView: FC = () => {
@@ -46,31 +47,7 @@ export const ChatView: FC = () => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [friends, setFriends] = React.useState([
-    { 'firstName': 'John', 'lastName': 'Smith', 'status': 'active' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-    { 'firstName': 'Michael', 'lastName': 'Jordan', 'status': 'inactive' },
-  ]);
+  const [friends, setFriends] = React.useState({friends:[]});
 
   const handleMenu = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -83,7 +60,20 @@ export const ChatView: FC = () => {
   const logout = () => {
     history.push('/logout');
   }
+
+  useEffect(() => {
+    console.log(friends)
+    const f = (async () => {
+      const arr = await getFriendsList();
+
+      setFriends({friends:arr})
+
+    })
+    f()
   
+  },[])
+
+  console.log(friends)
   return <div className={classes.root}>
   <AppBar className={classes.appbar} position="static">
     <Toolbar variant="dense">
@@ -127,7 +117,7 @@ export const ChatView: FC = () => {
             <Grid style={{height:"100%"}} item xs={2}>
             <FriendsList friends={friends}></FriendsList>
             </Grid>
-            <Grid style={{backgroundColor:"green", height:"100%"}} item xs={10}>
+            <Grid style={{ height:"100%"}} item xs={10}>
               <div>Chat Area</div>
             </Grid>
         </Grid>

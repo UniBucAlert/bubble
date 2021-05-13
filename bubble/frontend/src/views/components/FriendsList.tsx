@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 
 import Friend from './Friend'
 import FriendsHeader from './FriendsHeader'
-import FriendsListType from '../ChatView'
+import { User } from '../../models/User.model';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,7 +32,7 @@ function renderRow(props: ListChildComponentProps) {
     );
 }
 
-export default function FriendsList({ friends }: FriendsListType) {
+export default function FriendsList(friends : any) {
     const classes = useStyles();
     const containerRef = useRef(document.createElement("div"));
     const [height, setHeight] = useState(0);
