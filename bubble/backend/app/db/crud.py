@@ -1,9 +1,10 @@
-from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
 import typing as t
 
-from . import models, schemas
+from fastapi import HTTPException, status
+from sqlalchemy.orm import Session
+
 from app.core.security import get_password_hash
+from . import models, schemas
 
 
 def get_user(db: Session, user_id: int):
@@ -67,3 +68,22 @@ def edit_user(
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def get_friends(
+    db: Session, user_id: int
+) -> t.List[schemas.UserOut]:
+    user = get_user(db, user_id)
+    if not user:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user.friends
+
+
+def add_friend(db: Session, user_id: int, friend_id: int) -> None:
+    user_friends = models.UserFriends(
+        id=user_id,
+        friend_id=friend_id,
+    )
+
+    db.add(user_friends)
+    db.commit()
