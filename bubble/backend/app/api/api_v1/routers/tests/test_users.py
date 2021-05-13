@@ -75,6 +75,8 @@ def test_get_user(
     assert response.json() == {
         "id": test_user.id,
         "email": test_user.email,
+        "first_name": test_user.first_name,
+        "last_name": test_user.last_name,
         "is_active": bool(test_user.is_active),
         "is_superuser": test_user.is_superuser,
     }

@@ -27,9 +27,9 @@ def get_users(
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = get_password_hash(user.password)
     db_user = models.User(
+        email=user.email,
         first_name=user.first_name,
         last_name=user.last_name,
-        email=user.email,
         is_active=user.is_active,
         is_superuser=user.is_superuser,
         hashed_password=hashed_password,

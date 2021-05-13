@@ -11,6 +11,8 @@ import { useHistory } from 'react-router';
 import Grid from '@material-ui/core/Grid';
 
 import logo from '../assets/logo-text-inline.png';
+
+import { getUser } from '../utils/users';
 import FriendsList from './components/FriendsList';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +82,14 @@ export const ChatView: FC = () => {
     setAnchorEl(null);
   };
 
+  const handleProfile = () => {
+    // history.push('/profile');
+    // setAnchorEl(null);
+    const user = getUser()
+    console.log("hello din handle profile");
+    console.log(user);
+  };
+
   const logout = () => {
     history.push('/logout');
   }
@@ -114,7 +124,7 @@ export const ChatView: FC = () => {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleProfile}>Profile</MenuItem>
             <MenuItem onClick={logout}>Log out</MenuItem>
           </Menu>
         </div>
