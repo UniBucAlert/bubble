@@ -1,5 +1,14 @@
 # bubble
 
+<div>
+<img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
+src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
+src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp; &nbsp; <img
+src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
+<img src="assets/postgres.png" alt="react-logo" height="60" /> <img
+src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+</div>
+
 ## What is Bubble?
 Instant messaging platforms are everywhere. And you’ve probably seen someone typing a message and wondered *“what are they typing?”*.
 
@@ -16,7 +25,21 @@ The user will, therefore, see exactly what the response is, ever since the inter
 - Tudor Raluca
 - Țifui Alexandru
 
-## Stack used
 
-- Front -> React
-- Back -> FastAPI (Flask pe steroizi)
+## Features
+
+- **[FastAPI](https://fastapi.tiangolo.com/)** with Python 3.8
+    - JWT authentication using [OAuth2 "password
+    flow"](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/) and
+    PyJWT
+- **[React](https://reactjs.org/)** (with Typescript)
+    - [react-router v5](https://reacttraining.com/react-router/) to handle routing
+- **[PostgreSQL](https://www.postgresql.org/)** for the database
+- **[SqlAlchemy](https://www.sqlalchemy.org/)** for ORM
+- **[Alembic](https://alembic.sqlalchemy.org/en/latest/)** for database migrations
+- **[Pytest](https://docs.pytest.org/en/latest/)** for backend tests
+- **[Prettier](https://prettier.io/)**/**[ESLint](https://eslint.org/)** (Airbnb style guide)
+- **[Docker Compose](https://docs.docker.com/compose/)** for easier development
+- **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow backend and frontend on the same port
+- **[MaterialUI](https://material-ui.com/)** for styling.
+- **[react-admin](https://github.com/marmelab/react-admin)** for the admin dashboard

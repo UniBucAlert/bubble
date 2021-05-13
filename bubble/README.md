@@ -1,17 +1,5 @@
 # Bubble
 
-## Features
-
-- **FastAPI** with Python 3.8
-- **React 16** with Typescript, Redux, and react-router
-- Postgres
-- SqlAlchemy with Alembic for migrations
-- Pytest for backend tests
-- Jest for frontend tests
-- Perttier/Eslint (with Airbnb style guide)
-- Docker compose for easier development
-- Nginx as a reverse proxy to allow backend and frontend on the same port
-
 ## Development
 
 The only dependencies for this project should be docker and docker-compose.
