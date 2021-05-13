@@ -14,6 +14,8 @@ import logo from '../assets/logo-text-inline.png';
 import FriendsList from './components/FriendsList';
 import { getFriendsList } from '../utils';
 import { User } from '../models/User.model';
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,11 +64,11 @@ export const ChatView: FC = () => {
   }
 
   useEffect(() => {
-    console.log(friends)
     const f = (async () => {
       const arr = await getFriendsList();
-
-      setFriends({friends:arr})
+      // wrap array in object
+      const fr = {friends:arr}
+      setFriends(fr)
 
     })
     f()
@@ -74,6 +76,7 @@ export const ChatView: FC = () => {
   },[])
 
   console.log(friends)
+
   return <div className={classes.root}>
   <AppBar className={classes.appbar} position="static">
     <Toolbar variant="dense">
