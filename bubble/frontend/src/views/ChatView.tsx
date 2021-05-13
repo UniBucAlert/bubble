@@ -117,6 +117,7 @@ export const ChatView: FC = () => {
               <div>Chat Area</div>
             </Grid>
         </Grid>
+        
     {/*  */}
   </div>
 };

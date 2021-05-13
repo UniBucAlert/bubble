@@ -18,4 +18,15 @@ export const getFriends = async () => {
   return Promise.reject('Failed to get message from backend');
 };
 
+export const addFriend = async (userEmail: string) => {
+    const response = await fetch(BACKEND_URL + '/friends/' + userEmail, {
+        method: 'POST',
+        headers: authHeader
+    });
 
+    if (response.status === 200) {
+        return Promise.resolve("Friend with email " + userEmail + " added succesfully");
+    }
+    
+    return Promise.reject('Failed to add friend');
+}

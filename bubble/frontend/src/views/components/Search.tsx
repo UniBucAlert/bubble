@@ -1,7 +1,9 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import FriendsListType from '../ChatView'
+import FriendsListType from '../ChatView';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -48,7 +50,7 @@ function Search({ friends }: FriendsListType) {
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
-            <TextField  fullWidth={true} id="search-friend" label="Find friend" />
+            <TextField fullWidth={true} id="search-friend" label="Find friend" />
         </form>
     );
 }
