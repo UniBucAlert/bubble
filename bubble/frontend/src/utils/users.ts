@@ -1,6 +1,8 @@
+import { BACKEND_URL } from '../config';
+
 export const getUser = async () => {
 
-  const request = new Request('/api/v1/users/me', {
+  const request = new Request(BACKEND_URL + '/users/me', {
     method: 'GET',
     headers: {
       "Authorization": "Bearer " + localStorage.getItem('token')
