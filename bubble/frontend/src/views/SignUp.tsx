@@ -57,10 +57,10 @@ export const SignUp: FC = () => {
       setError('');
       try {
         const data = await signUp(
-          email, 
+          email,
           firstName,
           lastName,
-          password, 
+          password,
           passwordConfirmation
         );
 
