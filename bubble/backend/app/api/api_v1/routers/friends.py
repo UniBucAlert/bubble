@@ -11,7 +11,7 @@ from app.db.session import get_db
 friends_router = r = APIRouter()
 
 
-@r.get("/contact_requests", response_model=t.List[User], response_model_exclude_none=True)
+@r.get("/friends_of", response_model=t.List[User], response_model_exclude_none=True)
 async def friends(
     response: Response,
     db=Depends(get_db),

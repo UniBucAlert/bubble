@@ -23,7 +23,7 @@ def test_add_delete_get_friends(client, test_db,
     assert response.json() == []
 
     # Check superuser received contact request.
-    response = client.get("/api/v1/contact_requests", headers=superuser_token_headers)
+    response = client.get("/api/v1/friends_of", headers=superuser_token_headers)
     assert response.status_code == 200
     assert response.json() == [
         {
