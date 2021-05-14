@@ -41,7 +41,7 @@ function Search({ friends }: FriendsListType) {
                 return false;
             }
 
-            const newFriends = friends.filter(filterFunction);
+            // const newFriends = friends.filter(filterFunction);
             // setFriends(friends);
         })
     })
