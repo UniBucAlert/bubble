@@ -5,7 +5,7 @@ export const getUser = async () => {
   const request = new Request(BACKEND_URL + '/users/me', {
     method: 'GET',
     headers: {
-      "Authorization": "Bearer " + localStorage.getItem('token')
+      "Authorization": "Bearer " + localStorage.getItem('token'),
     },
   });
 
@@ -15,14 +15,5 @@ export const getUser = async () => {
     throw new Error('Internal server error');
   }
 
-  const data = await response.json();
-  if (response.status > 400 && response.status < 500) {
-    if (data.detail) {
-      throw data.detail;
-    }
-    throw data;
-  }
-
-  console.log(data);
-  return data;
+  return response.json();
 };

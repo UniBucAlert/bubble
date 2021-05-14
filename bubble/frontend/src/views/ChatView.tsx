@@ -87,10 +87,15 @@ export const ChatView: FC = () => {
 
   const handleProfile = () => {
     setAnchorEl(null);
-    const user = getUser();
 
-    console.log(user);
-    return <Profile></Profile>
+    // TODO this should be moved in profile
+    getUser().then((data) => {
+      console.log('Success:', data);
+      const user = data;
+    });
+
+    // TODO this is wrong but idk why
+    return <Profile></Profile>;
   };
 
   const logout = () => {

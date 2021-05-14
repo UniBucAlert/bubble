@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function Profile() {
+  console.log("Hello din profile modal")
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
