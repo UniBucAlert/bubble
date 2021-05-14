@@ -87,3 +87,12 @@ def add_friend(db: Session, user_id: int, friend_id: int) -> None:
 
     db.add(user_friends)
     db.commit()
+
+
+def get_contact_requests(
+    db: Session, user_id: int
+) -> t.List[schemas.UserOut]:
+    user = get_user(db, user_id)
+    if not user:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="User not found")
+    return user.friend_of
