@@ -1,3 +1,4 @@
+import * as dotenv from 'dotenv';
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router';
@@ -10,6 +11,10 @@ import { ChatView } from './views/ChatView';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import teal from '@material-ui/core/colors/teal';
+
+
+// Import env variables
+dotenv.config();
 
 // Theming componente Material UI
 // https://material-ui.com/customization/theming/

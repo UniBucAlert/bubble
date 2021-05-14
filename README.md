@@ -1,13 +1,16 @@
-# bubble
+# Bubble
+
 
 <div>
-<img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
-src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
-src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp; &nbsp; <img
-src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
-<img src="assets/postgres.png" alt="react-logo" height="60" /> <img
-src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+<img src="assets/fastapi-logo.png" alt="fastapi" height="60"/> &nbsp;
+<img src="assets/postgres.png" alt="porstgres" height="60" /> &nbsp;
+<img src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+<img src="assets/react-logo.png" alt="react" height="60" /> &nbsp;
+<img src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp;
+<img src="assets/typescript.png" alt="typescript" height="60" /> &nbsp;
+<img src="assets/firebase.png" alt="firebase" height="60" />
 </div>
+
 
 ## What is Bubble?
 Instant messaging platforms are everywhere. And you’ve probably seen someone typing a message and wondered *“what are they typing?”*.
@@ -18,10 +21,11 @@ In other words, ***Bubble*** is all about **live texting**, reproducing a normal
 
 The user will, therefore, see exactly what the response is, ever since the interlocutor types its first character.
 
+
 ## Who made Bubble?
 - Ciaușu Nicoleta
 - Preda Mihai-Dragoș
-- Radu Ștefan Octavian
+- Radu Ștefan-Octavian
 - Tudor Raluca
 - Țifui Alexandru
 
@@ -43,3 +47,4 @@ The user will, therefore, see exactly what the response is, ever since the inter
 - **[Nginx](https://www.nginx.com/)** as a reverse proxy to allow backend and frontend on the same port
 - **[MaterialUI](https://material-ui.com/)** for styling.
 - **[react-admin](https://github.com/marmelab/react-admin)** for the admin dashboard
+- **[Cloud Firestore](https://firebase.google.com/docs/firestore/)** for chat storage & syncing
