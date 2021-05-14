@@ -12,7 +12,6 @@ import Grid from '@material-ui/core/Grid';
 
 import logo from '../assets/logo-text-inline.png';
 
-import { getUser } from '../utils/users';
 import FriendsList from './components/FriendsList';
 import Profile from './components/Profile';
 
@@ -85,19 +84,6 @@ export const ChatView: FC = () => {
     setAnchorEl(null);
   };
 
-  const handleProfile = () => {
-    setAnchorEl(null);
-
-    // TODO this should be moved in profile
-    getUser().then((data) => {
-      console.log('Success:', data);
-      const user = data;
-    });
-
-    // TODO this is wrong but idk why
-    return <Profile></Profile>;
-  };
-
   const logout = () => {
     history.push('/logout');
   };
@@ -133,7 +119,9 @@ export const ChatView: FC = () => {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleProfile}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Profile></Profile>
+              </MenuItem>
               <MenuItem onClick={logout}>Log out</MenuItem>
             </Menu>
           </div>
