@@ -24,7 +24,12 @@ def test_signup(client, monkeypatch):
 
     response = client.post(
         "/api/signup",
-        data={"username": "some@email.com", "password": "randompassword"},
+        data={
+            "username": "some@email.com",
+            "first_name": "Name",
+            "last_name": "Surname", 
+            "password": "randompassword"
+        },
     )
     assert response.status_code == 200
 
@@ -32,11 +37,14 @@ def test_signup(client, monkeypatch):
 def test_resignup(client, test_user, monkeypatch):
     # Patch the test to skip password hashing check for speed
     monkeypatch.setattr(security, "verify_password", verify_password_mock)
+    print(test_user.email, test_user.first_name, test_user.last_name,)
 
     response = client.post(
         "/api/signup",
         data={
             "username": test_user.email,
+            "first_name": test_user.first_name,
+            "last_name": test_user.last_name,
             "password": "password_hashing_is_skipped_via_monkey_patch",
         },
     )

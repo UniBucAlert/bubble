@@ -107,6 +107,8 @@ def test_user(test_db) -> models.User:
 
     user = models.User(
         email="fake@email.com",
+        first_name="Name",
+        last_name="Surname",
         hashed_password=get_password_hash(),
         is_active=True,
     )
