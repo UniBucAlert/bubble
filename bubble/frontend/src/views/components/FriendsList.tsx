@@ -49,7 +49,7 @@ export default function FriendsList({friends} : any) {
     return (
         <div className={classes.root} ref={containerRef}>
             {/* {friends[0].email} */}
-            <Paper square={true} elevation={3}>
+            <Paper square={true} >
             <Typography className={classes.header} color="textSecondary" gutterBottom>
           Friends &#38; Requests
         </Typography>
