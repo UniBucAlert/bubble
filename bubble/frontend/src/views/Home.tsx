@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { getMessage } from '../utils/api';
 import { isAuthenticated } from '../utils/auth';
 
 // Pe asta l am lasat aici ca exemplu, cand nu mai avem nevoie de el trebuie sters TODO
@@ -16,22 +15,22 @@ export const Home: FC = () => {
   const [error, setError] = useState<string>('');
   const classes = useStyles();
 
-  const queryBackend = async () => {
-    try {
-      const message = await getMessage();
-      setMessage(message);
-    } catch (err) {
-      setError(err);
-    }
-  };
+  // const queryBackend = async () => {
+  //   try {
+  //     const message = await getMessage();
+  //     setMessage(message);
+  //   } catch (err) {
+  //     setError(err);
+  //   }
+  // };
 
   return (
     <>
-      {!message && !error && (
-        <a className={classes.link} href="#" onClick={() => queryBackend()}>
-          Click to make request to backend
-        </a>
-      )}
+      {/* {!message && !error && (
+        // <a className={classes.link} href="#" onClick={() => queryBackend()}>
+        //   Click to make request to backend
+        // </a>
+      // )} */}
       {message && (
         <p>
           <code>{message}</code>
