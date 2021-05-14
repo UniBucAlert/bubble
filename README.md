@@ -1,15 +1,36 @@
 # Bubble
 
-
 <div>
-<img src="assets/react-logo.png" alt="react" height="60" /> &nbsp;
-<img src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp;
-<img src="assets/typescript.png" alt="typescript" height="60" /> &nbsp;
-<img src="assets/firebase.png" alt="firebase" height="60" />
+<style>
+
+    .flex-container {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .center {
+        margin: auto;
+        border: 5px solid #FFFF00;
+        padding: 10px;
+    }
+
+</style>
+
+<div width="100%">
+    <div width="70%" class="flex-container center">
+    <img src="assets/react-logo.png" alt="react" height="60" /> &nbsp;
+    <img src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp;
+    <img src="assets/typescript.png" alt="typescript" height="60" /> &nbsp;
+    </div>
+</div>
+
 </br>
+<div class="flex-container">
+<img src="assets/firebase.png" alt="firebase" height="60" />&nbsp;
 <img src="assets/fastapi-logo.png" alt="fastapi" height="60"/> &nbsp;
 <img src="assets/postgres.png" alt="porstgres" height="60" /> &nbsp;
 <img src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+</div>
 </div>
 
 
