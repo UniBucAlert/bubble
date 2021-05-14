@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,16 +8,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { MenuProps } from '@material-ui/core/Menu/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { useHistory } from 'react-router';
 import Grid from '@material-ui/core/Grid';
 
 import logo from '../assets/logo-text-inline.png';
 
 import { getUser } from '../utils/users';
+import { BareChat } from '../firebase/chat';
 import FriendsList from './components/FriendsList';
 import { getContacts, getFriends } from '../utils';
 import { User } from '../models/User.model';
 import "../index.css"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -119,16 +121,17 @@ export const ChatView: FC = () => {
             <MenuItem onClick={logout}>Log out</MenuItem>
           </Menu>
         </div>
-
     </Toolbar>
   </AppBar>
-
     {/* Layout al aplicatiei */}
       <Grid container spacing={0} style={{height:"calc(100% - 48px)",width:"100%"}} xs={12}>
             <Grid style={{height:"100%"}} item xs={2}>
             <FriendsList friends={friends}></FriendsList>
             </Grid>
             <Grid className="chatWindow" style={{ height:"100%"}} item xs={10}>
+              <BareChat meId = '1' otherId = '2'>
+                <h1>Chat area</h1>
+              </BareChat>
             </Grid>
         </Grid>
     {/*  */}
