@@ -79,20 +79,22 @@ export class BareChat extends Component<BareChatProps, any> {
     }
 
     return messages.get().then(snapshot => {
-      this.oldestMessage = snapshot.docs[snapshot.docs.length - 1];
-      this.mostRecentMessage = snapshot.docs[0].data();
+      if (snapshot.docs.length) {
+        this.oldestMessage = snapshot.docs[snapshot.docs.length - 1];
+        this.mostRecentMessage = snapshot.docs[0].data();
 
-      let messageArray = snapshot.docs.map((doc) => {
-        return {
-          content: doc.data().content,
-          timestamp: doc.data().timestamp,
-          from: doc.data().from,
-        };
-      });
+        let messageArray = snapshot.docs.map((doc) => {
+          return {
+            content: doc.data().content,
+            timestamp: doc.data().timestamp,
+            from: doc.data().from,
+          };
+        });
 
-      this.setState({
-        messages: [...this.state.messages, ...messageArray],
-      })
+        this.setState({
+          messages: [...this.state.messages, ...messageArray],
+        });
+      }
     });
   }
 
