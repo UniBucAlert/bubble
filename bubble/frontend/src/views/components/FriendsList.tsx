@@ -33,7 +33,7 @@ function renderRow(props: ListChildComponentProps) {
     );
 }
 
-export default function FriendsList({friends} : any) {
+export default function FriendsList({friends, setFriends} : any) {
     const classes = useStyles();
     const containerRef = useRef(document.createElement("div"));
     const [height, setHeight] = useState(0);
@@ -46,7 +46,7 @@ export default function FriendsList({friends} : any) {
         <div className={classes.root} ref={containerRef}>
             {/* {friends[0].email} */}
             <Paper square={true} elevation={3}>
-            <FriendsHeader friends={friends}></FriendsHeader>
+                <FriendsHeader friends={friends} setFriends={setFriends}></FriendsHeader>
             <Divider />
             <FixedSizeList height={height} width="100%" itemSize={70} itemCount={friends.length} itemData={friends}>
                 {renderRow}

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { addFriend } from '../../utils'
+import { addFriend, getFriends } from '../../utils'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function AddButton() {
+function AddButton({ setFriends }: any) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [infoOpen, setInfoOpen] = React.useState(false);
@@ -74,6 +74,11 @@ function AddButton() {
         addFriend(emailAddr).then((msg) => {
             setInfoMessage(msg);
             handleClose();
+
+            getFriends().then((fl) => {
+                setFriends(fl)
+            })
+
         }).catch((err) => {
             let msg = "You already have that friend";
             if (err === 404)

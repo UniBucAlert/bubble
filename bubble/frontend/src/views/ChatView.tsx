@@ -111,7 +111,7 @@ export const ChatView: FC = () => {
     {/* Layout al aplicatiei */}
       <Grid container spacing={0} style={{height:"calc(100% - 48px)",width:"100%"}} xs={12}>
             <Grid style={{height:"100%"}} item xs={2}>
-            <FriendsList friends={friends}></FriendsList>
+              <FriendsList friends={friends} setFriends={setFriends}></FriendsList>
             </Grid>
             <Grid style={{ height:"100%"}} item xs={10}>
               <div>Chat Area</div>
