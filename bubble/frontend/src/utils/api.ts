@@ -25,8 +25,8 @@ export const addFriend = async (userEmail: string) => {
     });
 
     if (response.status === 200) {
-        return Promise.resolve("Friend with email " + userEmail + " added succesfully");
+        return Promise.resolve("Friend added succesfully");
     }
     
-    return Promise.reject('Failed to add friend');
+    return Promise.reject(response.status);
 }

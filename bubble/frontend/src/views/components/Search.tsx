@@ -30,7 +30,7 @@ function Search({ friends }: FriendsListType) {
             let friendName = '';
             let input = document.getElementById('search-friend');
             if (input) {
-                friendName = input.nodeValue!;
+                friendName = (input as HTMLInputElement).value;
             }
 
             let filterFunction = (friend: FriendType) => {

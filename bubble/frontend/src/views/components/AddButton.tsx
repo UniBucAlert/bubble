@@ -34,12 +34,19 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: {
             margin: theme.spacing(1),
         },
+        center: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
     }),
 );
 
 function AddButton() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [infoOpen, setInfoOpen] = React.useState(false);
+    const [infoMessage, setInfoMessage] = React.useState("");
 
     const handleOpen = () => {
         setOpen(true);
@@ -49,13 +56,31 @@ function AddButton() {
         setOpen(false);
     };
 
+    const handleInfoClose = () => {
+        setInfoOpen(false);
+    }
+
+    React.useEffect(() => {
+        if (infoMessage !== "")
+            setInfoOpen(true);
+    }, [infoMessage]);
+
     const handleSubmit = () => {
-        let input = document.getElementById("add-friend-input");
-        let emailAddr = input ? input.nodeValue : undefined;
-        if (emailAddr === null || emailAddr === undefined)
+        let input = document.getElementById("add-friend-input") as HTMLInputElement;
+        let emailAddr = input ? input.value : undefined;
+        if (emailAddr === null || emailAddr === undefined || emailAddr === "") 
             return;
 
-        addFriend(emailAddr).then()
+        addFriend(emailAddr).then((msg) => {
+            setInfoMessage(msg);
+            handleClose();
+        }).catch((err) => {
+            let msg = "You already have that friend";
+            if (err === 404)
+                msg = "User not found";
+            setInfoMessage(msg);
+            handleClose();
+        });
     };
 
     return (
@@ -89,6 +114,31 @@ function AddButton() {
                             <CloseIcon></CloseIcon>
                             Close
                         </Button>
+                    </div>
+                </Fade>
+            </Modal>
+
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={infoOpen}
+                onClose={handleInfoClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={infoOpen}>
+                    <div className={classes.paper}>
+                        <h2 id="info-modal-title">{infoMessage}</h2>
+                        <div className={classes.center}>
+                            <Button variant="contained" size="large" color="primary" className={classes.margin} onClick={handleInfoClose}>
+                                <CloseIcon></CloseIcon>
+                                Close
+                            </Button>
+                        </div>
                     </div>
                 </Fade>
             </Modal>
