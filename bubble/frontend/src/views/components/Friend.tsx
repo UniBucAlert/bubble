@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
         height: 30,
         width: 30,
         marginRight: 7,
+    },
+    blue: {
+        color:'blue'
     }
 }));
 

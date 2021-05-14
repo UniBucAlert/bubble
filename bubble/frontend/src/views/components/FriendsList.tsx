@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Friend from './Friend'
 import FriendsHeader from './FriendsHeader'
 import { User } from '../../models/User.model';
-
+import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -48,6 +48,9 @@ export default function FriendsList({friends} : any) {
             <Paper square={true} elevation={3}>
             <FriendsHeader friends={friends}></FriendsHeader>
             <Divider />
+            <Typography  color="textSecondary" gutterBottom>
+          Word of the Day
+        </Typography>
             <FixedSizeList height={height} width="100%" itemSize={70} itemCount={friends.length} itemData={friends}>
                 {renderRow}
             </FixedSizeList>
