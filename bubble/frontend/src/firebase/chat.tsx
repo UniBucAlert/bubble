@@ -1,6 +1,5 @@
 import { fireDb, getServerTimestampField } from './firebaseUtils';
 import React, { Component } from 'react';
-import assert from 'assert';
 
 
 interface BareChatProps {
