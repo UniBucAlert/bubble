@@ -5,8 +5,8 @@ from .session import Base
 
 UserFriends = Table('UserFriends',
                     Base.metadata,
-                    Column('user_id', Integer, ForeignKey('user.id')),
-                    Column('friend_id', Integer, ForeignKey('user.id')))
+                    Column('user_id', Integer, ForeignKey('user.id'), primary_key=True),
+                    Column('friend_id', Integer, ForeignKey('user.id'), primary_key=True))
 
 
 class User(Base):
@@ -19,8 +19,14 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
-    friends = relation(
-                        'User', secondary=UserFriends,
-                        primaryjoin=UserFriends.c.user_id == id,
-                        secondaryjoin=UserFriends.c.friend_id == id,
-                        backref="friendOf")
+    friends = relation('User',
+                       secondary=UserFriends,
+                       primaryjoin=UserFriends.c.user_id == id,
+                       secondaryjoin=UserFriends.c.friend_id == id,
+                       backref="friendOf")
+
+    friend_of = relation('User',
+                         secondary=UserFriends,
+                         primaryjoin=UserFriends.c.friend_id == id,
+                         secondaryjoin=UserFriends.c.user_id == id,
+                         backref="friend")

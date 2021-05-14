@@ -1,5 +1,5 @@
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Form
 from datetime import timedelta
 
 from app.db.session import get_db
@@ -13,7 +13,11 @@ auth_router = r = APIRouter()
 async def login(
     db=Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ):
-    user = authenticate_user(db, form_data.username, form_data.password)
+    user = authenticate_user(
+        db, 
+        form_data.username, 
+        form_data.password
+    )
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -38,9 +42,18 @@ async def login(
 
 @r.post("/signup")
 async def signup(
-    db=Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
+    db=Depends(get_db), 
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    first_name: str = Form(...),
+    last_name: str = Form(...)
 ):
-    user = sign_up_new_user(db, form_data.username, form_data.password)
+    user = sign_up_new_user(
+        db, 
+        form_data.username, 
+        first_name,
+        last_name,
+        form_data.password
+    )
     if not user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
