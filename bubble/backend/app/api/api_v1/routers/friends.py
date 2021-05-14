@@ -1,18 +1,26 @@
-from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import APIRouter, Depends, HTTPException, status, Response
-from datetime import timedelta
 import typing as t
 
-from app.db import models
-from app.db.session import get_db
-from app.core import security
-from app.db.schemas import UserCreate, UserEdit, User, UserOut
-from app.core.auth import authenticate_user, sign_up_new_user
-from app.core.auth import get_current_active_user, get_current_active_superuser
+from fastapi import APIRouter, Depends, HTTPException, Response
 
-from app.db.crud import get_friends, add_friend, get_user_by_email
+from app.core.auth import get_current_active_user
+from app.db import models
+from app.db.crud import get_friends, get_contact_requests
+from app.db.schemas import User
+from app.db.session import get_db
 
 friends_router = r = APIRouter()
+
+
+@r.get("/contact_requests", response_model=t.List[User], response_model_exclude_none=True)
+async def friends(
+    response: Response,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
+):
+    """
+    Get current user's contact requests.
+    """
+    return get_contact_requests(db, current_user.id)
 
 
 @r.get("/friends", response_model=t.List[User], response_model_exclude_none=True)
