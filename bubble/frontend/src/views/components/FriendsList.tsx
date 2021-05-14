@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             height: '100%',
         },
+        header: {
+            paddingTop:"10px",
+            paddingLeft:"10px"
+        }
     }),
 );
 
@@ -27,7 +31,7 @@ function renderRow(props: ListChildComponentProps) {
                 // firstName={data[index].firstName}
                 // lastName={data[index].lastName}
                 email = {data[index].email}
-                status={data[index].status}
+                is_friend={data[index].is_friend}
             ></Friend>
         </ListItem>
     );
@@ -39,18 +43,17 @@ export default function FriendsList({friends} : any) {
     const [height, setHeight] = useState(0);
     
     useEffect(() => {
-            setHeight(containerRef.current.getBoundingClientRect().height - 120) 
+            setHeight(containerRef.current.getBoundingClientRect().height - 40) 
             console.log(friends)
         },[])
     return (
         <div className={classes.root} ref={containerRef}>
             {/* {friends[0].email} */}
             <Paper square={true} elevation={3}>
-            <FriendsHeader friends={friends}></FriendsHeader>
-            <Divider />
-            <Typography  color="textSecondary" gutterBottom>
-          Word of the Day
+            <Typography className={classes.header} color="textSecondary" gutterBottom>
+          Friends &#38; Requests
         </Typography>
+        <Divider />
             <FixedSizeList height={height} width="100%" itemSize={70} itemCount={friends.length} itemData={friends}>
                 {renderRow}
             </FixedSizeList>

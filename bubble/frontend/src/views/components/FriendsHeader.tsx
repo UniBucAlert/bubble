@@ -6,6 +6,7 @@ import Search from './Search'
 import FriendButton from './FriendButton'
 import FriendsListType from '../ChatView';
 
+// UNUSED -- TODO: CLEANUP
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {

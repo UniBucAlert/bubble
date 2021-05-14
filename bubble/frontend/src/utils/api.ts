@@ -33,3 +33,25 @@ export const getFriendsOf = async () => {
 };
 
 
+export const getContacts = async () => {
+  // let i_friended = await getFriends()
+  // let friended_me = await getFriendsOf()
+  return Promise.all([getFriends(),getFriendsOf()]).then(([i_friended,friended_me]) => {
+
+    
+    let mutual_friends = i_friended.filter((a:any) => friended_me.some((b:any) => a.id === b.id));  
+    let friend_requests = i_friended.filter((a:any) => !friended_me.some((b:any) => a.id === b.id)); 
+    
+    let contacts = mutual_friends.map((obj:any) => ({...obj, is_friend:true})).concat(
+      friend_requests.map((obj:any) => ({...obj, is_friend:false}))
+    )
+
+    return contacts;
+  }).then((res) => { return res;})
+
+  // console.log("i friended", i_friended)
+
+  // console.log("friended me",friended_me)
+
+
+};

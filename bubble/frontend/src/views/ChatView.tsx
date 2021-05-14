@@ -14,7 +14,7 @@ import logo from '../assets/logo-text-inline.png';
 
 import { getUser } from '../utils/users';
 import FriendsList from './components/FriendsList';
-import { getFriends } from '../utils';
+import { getContacts, getFriends } from '../utils';
 import { User } from '../models/User.model';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,10 +53,12 @@ export const ChatView: FC = () => {
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    getFriends().then((fl) => {
-      console.log(fl)
+    getContacts().then((fl) => {
+      console.log("sunt fl",fl)
       setFriends(fl)
     })
+
+    // getContacts()
     }, []);
 
   const handleMenu = (event: any) => {
