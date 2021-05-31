@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
 import Search from './Search'
-import FriendButton from './FriendButton'
+import AddButton from './AddButton'
 import FriendsListType from '../ChatView';
 
 // UNUSED -- TODO: CLEANUP
@@ -15,16 +15,21 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: 300,
             backgroundColor: theme.palette.background.paper
         },
+        buttonContainer: {
+            display: 'flex',
+        }
     }),
 );
 
-function FriendsHeader({ friends }: FriendsListType) {
+function FriendsHeader({ friends, setFriends }: any) {
     const classes = useStyles();
 
     return (
         <>
+            <div className={classes.buttonContainer}>
             <Search friends={friends}></Search>
-            <FriendButton></FriendButton>
+                <AddButton setFriends={setFriends}></AddButton>
+            </div>
         </>
     )
 }

@@ -127,7 +127,7 @@ export const ChatView: FC = () => {
         xs={12}
       >
         <Grid style={{ height: '100%' }} item xs={2}>
-          <FriendsList friends={friends}></FriendsList>
+          <FriendsList friends={friends} setFriends={setFriends}></FriendsList>
         </Grid>
         <Grid className="chatWindow" style={{ height:"100%"}} item xs={10}>
           <BareChat meId = '1' otherId = '2'>

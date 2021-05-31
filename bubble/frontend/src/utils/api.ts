@@ -55,3 +55,15 @@ export const getContacts = async () => {
 
 
 };
+export const addFriend = async (userEmail: string) => {
+    const response = await fetch(BACKEND_URL + '/friends/' + userEmail, {
+        method: 'POST',
+        headers: authHeader
+    });
+
+    if (response.status === 200) {
+        return Promise.resolve("Friend added succesfully");
+    }
+    
+    return Promise.reject(response.status);
+}
