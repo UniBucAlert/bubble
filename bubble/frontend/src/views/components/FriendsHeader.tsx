@@ -3,7 +3,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
 import Search from './Search'
-import FriendButton from './FriendButton'
 import AddButton from './AddButton'
 import FriendsListType from '../ChatView';
 
@@ -26,9 +25,8 @@ function FriendsHeader({ friends, setFriends }: any) {
 
     return (
         <>
-            <Search friends={friends}></Search>
             <div className={classes.buttonContainer}>
-                <FriendButton></FriendButton>
+            <Search friends={friends}></Search>
                 <AddButton setFriends={setFriends}></AddButton>
             </div>
         </>
