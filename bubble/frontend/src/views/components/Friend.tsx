@@ -7,6 +7,7 @@ import inactiveLogo from '../../assets/inactive.png'
 
 import SentimentVerySatisfiedTwoToneIcon from '@material-ui/icons/SentimentVerySatisfiedTwoTone';
 import HelpTwoToneIcon from '@material-ui/icons/HelpTwoTone';
+import FaceIcon from '@material-ui/icons/Face';
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
@@ -22,29 +23,39 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 7,
     },
     request: {
-        color:'orange'
+        color: 'orange'
     },
     friend: {
-        color:'green'
+        color: 'green'
+    }, 
+    unaccepted:{
+        color:'gray'
     }
 
 }));
 
 interface Props {
     email: string,
-    is_friend:boolean
+    friend_status: string
 }
 
-function Friend({ email, is_friend }: Props) {
+
+
+function Friend({ email, friend_status }: Props) {
     const classes = useStyles();
-    console.log(is_friend)
+    console.log(friend_status)
     return (
         <div className={classes.container}>
-            {
-                is_friend == true ?
-                <SentimentVerySatisfiedTwoToneIcon className={[classes.logo, classes.friend].join(" ")} /> :
-                <HelpTwoToneIcon className={[classes.logo, classes.request].join(" ")} />
-            }
+            {(() => {
+                if (friend_status == "mutuals") {
+                    return (<SentimentVerySatisfiedTwoToneIcon className={[classes.logo, classes.friend].join(" ")} />)
+                } else if (friend_status == "friended_me") {
+                    return (<HelpTwoToneIcon className={[classes.logo, classes.request].join(" ")} />)
+                } else {
+                    return (<FaceIcon  className={[classes.logo, classes.unaccepted].join(" ")}/>)
+                }
+
+            })()}
             <ListItemText primary={`${email}`} />
         </div>
     )

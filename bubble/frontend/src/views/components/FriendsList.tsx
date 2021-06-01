@@ -31,7 +31,7 @@ function renderRow(props: ListChildComponentProps) {
                 // firstName={data[index].firstName}
                 // lastName={data[index].lastName}
                 email = {data[index].email}
-                is_friend={data[index].is_friend}
+                friend_status={data[index].friend_status}
             ></Friend>
         </ListItem>
     );

@@ -1,12 +1,10 @@
 import { BACKEND_URL } from '../config';
 import { User } from '../models/User.model';
 
-const authHeader = { 'Authorization': 'Bearer ' + localStorage.getItem('token')}
-
 
 export const getFriends = async () => {
   const response = await fetch(BACKEND_URL + "/friends", {
-    headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token')}
+    headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
 
   const data = await response.json();
@@ -20,7 +18,7 @@ export const getFriends = async () => {
 
 export const getFriendsOf = async () => {
   const response = await fetch(BACKEND_URL + "/friends_of", {
-    headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token')}
+    headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
 
   const data = await response.json();
@@ -36,20 +34,25 @@ export const getFriendsOf = async () => {
 export const getContacts = async () => {
   // let i_friended = await getFriends()
   // let friended_me = await getFriendsOf()
-  return Promise.all([getFriends(),getFriendsOf()]).then(([i_friended,friended_me]) => {
+  return Promise.all([getFriends(), getFriendsOf()]).then(([i_friended, friended_me]) => {
 
 
-    let mutual_friends = i_friended.filter((a:any) => friended_me.some((b:any) => a.id === b.id));  
-    let friend_requests = i_friended.filter((a:any) => !friended_me.some((b:any) => a.id === b.id)).concat(
-      friended_me.filter((a:any) => !i_friended.some((b:any) => a.id === b.id))
-    )
-    
-    let contacts = mutual_friends.map((obj:any) => ({...obj, is_friend:true})).concat(
-      friend_requests.map((obj:any) => ({...obj, is_friend:false}))
-    )
+    let mutual_friends = i_friended.filter((a: any) =>
+      friended_me.some((b: any) => a.id === b.id))
+      .map((obj: any) => ({ ...obj, friend_status: "mutuals" }))
+
+    let friend_requests = i_friended.filter((a: any) => !friended_me.some((b: any) => a.id === b.id))
+    .map((obj: any) => ({ ...obj, friend_status: "i_friended" }))
+      .concat(
+        (friended_me.filter((a: any) => !i_friended.some((b: any) => a.id === b.id)))
+        .map((obj: any) => ({ ...obj, friend_status: "friended_me" }))
+        )
+
+
+    let contacts = mutual_friends.map((obj: any) => ({ ...obj, friend_status: "mutuals" })).concat(friend_requests)
 
     return contacts;
-  }).then((res) => { return res;})
+  }).then((res) => { return res; })
 
   // console.log("i friended", i_friended)
 
@@ -58,14 +61,14 @@ export const getContacts = async () => {
 
 };
 export const addFriend = async (userEmail: string) => {
-    const response = await fetch(BACKEND_URL + '/friends/' + userEmail, {
-        method: 'POST',
-        headers: authHeader
-    });
+  const response = await fetch(BACKEND_URL + '/friends/' + userEmail, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+  });
 
-    if (response.status === 200) {
-        return Promise.resolve("Friend added succesfully");
-    }
-    
-    return Promise.reject(response.status);
+  if (response.status === 200) {
+    return Promise.resolve("Friend added succesfully");
+  }
+
+  return Promise.reject(response.status);
 }

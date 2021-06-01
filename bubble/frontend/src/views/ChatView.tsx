@@ -79,6 +79,7 @@ export const ChatView: FC = () => {
     history.push('/logout');
   };
 
+
   return (
     <div className={classes.root}>
       <AppBar className={classes.appbar} position="static">
