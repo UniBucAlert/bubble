@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { addFriend, getFriends } from '../../utils'
+import { addFriend, getContacts } from '../../utils'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -75,7 +75,7 @@ function AddButton({ setFriends }: any) {
             setInfoMessage(msg);
             handleClose();
 
-            getFriends().then((fl) => {
+            getContacts().then((fl) => {
                 setFriends(fl)
             })
 
