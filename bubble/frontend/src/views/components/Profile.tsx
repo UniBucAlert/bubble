@@ -1,18 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { AccountCircle, Face, Fingerprint } from '@material-ui/icons';
-
-import { getUser } from '../../utils/users';
-
-interface UserType {
-  email: string;
-  first_name: string;
-  last_name: string;
-}
+import { AccountCircle, Face } from '@material-ui/icons';
+import { useUser } from '../../hooks/useUser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Profile() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [user, setUser] = React.useState<UserType | null>(null);
+  const user = useUser()
 
   const handleOpen = () => {
     setOpen(true);
@@ -42,13 +35,6 @@ export default function Profile() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  useEffect(() => {
-    getUser().then((data) => {
-      console.log('Success:', data);
-      setUser(data);
-    });
-  }, []);
 
   if (!user) {
     return <div></div>;

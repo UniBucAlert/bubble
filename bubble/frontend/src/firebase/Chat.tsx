@@ -164,15 +164,16 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
     }
   }, [])
 
-  console.log(messages.current)
-
   const [message, setMessage] = useState('')
 
   return (
-    <>
-      {messages.current.map((message) => (
-        <div>{message.content}</div>
-      ))}
+    <div style={{display:'flex', flex: 1, flexDirection: 'column'}}>
+      <div style={{display:'flex', flex: 1, flexDirection: 'column'}}>
+      {messages.current.map((message) => {
+        return (
+        <div style={{width:'100%', display:'flex', justifyContent: message.from === meId ? 'flex-end' : 'flex-start'}}>{message.content}</div>
+      )})}
+      </div>
 
       <form onSubmit={async (event) => {
         event.preventDefault()
@@ -183,10 +184,11 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
           console.error(e);
         }
       }}>
+        <MessageIcon />
         <TextField id="message" placeholder="Type a message" value={message} onChange={(event) => setMessage(event.target.value)} />
 
         <Button type="submit">Send</Button>
       </form>
-    </>
+    </div>
   )
 }

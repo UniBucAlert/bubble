@@ -20,12 +20,16 @@ import { getContacts, getFriends } from '../utils';
 import { User } from '../models/User.model';
 import "../index.css"
 
+import { useSelector } from 'react-redux'
+import { AppState } from '../redux'
+import { useUser } from '../hooks/useUser';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
     height: '100vh',
-    backgroundColor: 'blue',
+    backgroundColor: 'white',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -51,11 +55,16 @@ interface FriendsListType {
     friends: User[]
 }
 
-export const ChatView: FC = () => {
+export const ChatView = () => {
   const classes = useStyles();
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [friends, setFriends] = React.useState([]);
+
+  const openedFriend = useSelector((state: AppState) => state.chat.friend)
+  const user = useUser()
+
+  console.log(user)
 
   const open = Boolean(anchorEl);
 
@@ -79,6 +88,9 @@ export const ChatView: FC = () => {
     history.push('/logout');
   };
 
+  if (!user) {
+    return null
+  }
 
   return (
     <div className={classes.root}>
@@ -130,11 +142,11 @@ export const ChatView: FC = () => {
         <Grid style={{ height: '100%' }} item xs={2}>
           <FriendsList friends={friends} setFriends={setFriends}></FriendsList>
         </Grid>
-        <Grid className="chatWindow" style={{ height:"100%"}} item xs={10}>
-          <Chat meId={'1'} otherId={'2'} /> 
-        </Grid>
+
+        <div style={{display:'flex', flex: 1}}>
+          {openedFriend && <Chat meId={user.id.toString()} otherId={openedFriend.toString()} />}
+        </div>
       </Grid>
-      {/*  */}
     </div>
   );
 };

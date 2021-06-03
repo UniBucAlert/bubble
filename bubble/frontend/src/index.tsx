@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import axios from 'axios';
+import { store } from './redux';
+import { Provider } from 'react-redux'
+// import axios from 'axios';
 
 
 // atasez tokenul din local storage pe orice request facut!
@@ -11,8 +13,10 @@ import axios from 'axios';
 //   return config;
 // })
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );

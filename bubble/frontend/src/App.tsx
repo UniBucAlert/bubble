@@ -1,6 +1,19 @@
-import React, { FC } from 'react';
-import { Routes } from './Routes';
+import React, { useEffect } from 'react'
+import { useAppDispatch } from './redux'
+import { setUser } from './redux/features/auth'
+import { Routes } from './Routes'
+import { getUser } from './utils/users'
 
-const App: FC = () => <Routes />;
+const App = () => {
+  const dispatch = useAppDispatch()
 
-export default App;
+  useEffect(() => {
+    getUser().then((data) => {
+      dispatch(setUser(data))
+    })
+  }, [])
+
+  return <Routes />
+}
+
+export default App
