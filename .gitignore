@@ -1,2 +1,6 @@
 bubble/.idea/
 *.pyc
+*.env
+!*example.env
+*venv
+!.gitignore

@@ -53,6 +53,7 @@ export class BareChat extends Component<BareChatProps, any> {
               this.mostRecentMessage.timestamp) {
 
             this.mostRecentMessage = snapshot.docs[0].data();
+            console.log(this.mostRecentMessage);
             this.setState({
               messages: [this.mostRecentMessage, ...this.state.messages],
             });
