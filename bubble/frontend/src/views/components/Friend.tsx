@@ -43,7 +43,6 @@ interface Props {
 
 function Friend({ email, friend_status }: Props) {
     const classes = useStyles();
-    console.log(friend_status)
     return (
         <div className={classes.container}>
             {(() => {

@@ -1,9 +1,9 @@
 import { fireDb, getServerTimestampField } from './firebaseUtils'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import MessageIcon from '@material-ui/icons/Message';
 import { useRerender } from '../hooks/useRerender'
+
 
 export type ChatProps = {
   meId: string
@@ -26,11 +26,9 @@ export type Message = {
 export const Chat = ({ meId, otherId }: ChatProps) => {
   const rerender = useRerender()
 
-  const [chatId, setChatId] = useState(meId < otherId ? `${meId}_${otherId}` : `${otherId}_${meId}`)
+  const chatId = useMemo(() => meId < otherId ? `${meId}_${otherId}` : `${otherId}_${meId}`, [meId, otherId])
 
-  // const [messages.current, setMessages] = useState<Message[]>([])
   const messages = useRef<Message[]>([])
-  const [_, set_] = useState<any>({})
   const mostRecentMessage = useRef<Message>()
   const [oldestMessage, setOldestMessage] = useState<Message>()
 
@@ -45,7 +43,6 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
         if (snapshot.docs.length) {
           if (!mostRecentMessage.current || snapshot.docs[0].data().timestamp > mostRecentMessage.current.timestamp) {
             mostRecentMessage.current = snapshot.docs[0].data() as any
-            console.log(mostRecentMessage.current)
             if (!mostRecentMessage.current) {
               return
             }
@@ -95,7 +92,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
       .runTransaction(async (transaction) => {
         return transaction.get(chat).then((data) => {
           if (data.exists) {
-            console.log('chat already exists')
+            console.warn('chat already exists')
             return
           }
 
@@ -124,7 +121,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
       .runTransaction(async (transaction) => {
         return transaction.get(chat).then((data) => {
           if (!data.exists) {
-            console.log("Chat doesnt't exist!")
+            console.warn("Chat doesnt't exist!")
             return false
           }
 
@@ -145,33 +142,42 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
         return true
       })
       .catch((error) => {
-        console.log('Error getting chat ', error)
+        console.error('Error getting chat ', error)
         return false
       })
   }
 
-  useEffect(() => {
-    let listener: any
+  const listener = useRef<any>()
 
+  useEffect(() => {
+    // Reset everything when switching the chat from a user to another
+    setMessage('')
+    messages.current = []
+    mostRecentMessage.current = undefined
+    rerender()
+
+    // 
     createChat().then(() => {
       loadMoreMessages(true).then(() => {
-        listener = startNewMessageListener()
+        startNewMessageListener().then((value) => listener.current = value)
       })
     })
 
     return () => {
-      listener?.()
+      listener.current?.()
     }
-  }, [])
+  }, [meId, otherId])
 
   const [message, setMessage] = useState('')
 
   return (
-    <div style={{display:'flex', flex: 1, flexDirection: 'column'}}>
+    <div style={{display:'flex', flex: 1, flexDirection: 'column', margin: '24px 40px'}}>
       <div style={{display:'flex', flex: 1, flexDirection: 'column'}}>
-      {messages.current.map((message) => {
+      {messages.current.slice().reverse().map((message) => {
+        const isMine = message.from === meId
+
         return (
-        <div style={{width:'100%', display:'flex', justifyContent: message.from === meId ? 'flex-end' : 'flex-start'}}>{message.content}</div>
+        <div style={{width:'100%', display:'flex', justifyContent: isMine ? 'flex-end' : 'flex-start'}}><div style={{padding: '8px 12px', backgroundColor: isMine ? '#8ed4cb' : '#cccccc', borderRadius: 999, marginBottom: 16}}>{message.content}</div></div>
       )})}
       </div>
 
@@ -184,10 +190,13 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
           console.error(e);
         }
       }}>
-        <MessageIcon />
-        <TextField id="message" placeholder="Type a message" value={message} onChange={(event) => setMessage(event.target.value)} />
+        <div style={{display:'grid', gridTemplateColumns: 'auto 100px'}}>
+
+        <TextField id="message" variant="filled" placeholder="Type a message" value={message} onChange={(event) => setMessage(event.target.value)} style={{width: '100%'}} />
 
         <Button type="submit">Send</Button>
+
+        </div>
       </form>
     </div>
   )

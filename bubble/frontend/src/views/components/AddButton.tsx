@@ -80,7 +80,7 @@ function AddButton({ setFriends }: any) {
             })
 
         }).catch((err) => {
-            console.log(err)
+            console.error(err)
             let msg = "You already have that friend";
             if (err === 404)
                 msg = "User not found";

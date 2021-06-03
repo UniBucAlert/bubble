@@ -21,7 +21,8 @@ import { User } from '../models/User.model';
 import "../index.css"
 
 import { useSelector } from 'react-redux'
-import { AppState } from '../redux'
+import { AppState, useAppDispatch } from '../redux'
+import { setActiveChat } from '../redux/features/chat'
 import { useUser } from '../hooks/useUser';
 
 const useStyles = makeStyles((theme) => ({
@@ -55,22 +56,20 @@ interface FriendsListType {
     friends: User[]
 }
 
-export const ChatView = () => {
+export const ChatView = React.memo(() => {
   const classes = useStyles();
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [friends, setFriends] = React.useState([]);
+  const dispatch = useAppDispatch()
 
   const openedFriend = useSelector((state: AppState) => state.chat.friend)
   const user = useUser()
-
-  console.log(user)
 
   const open = Boolean(anchorEl);
 
   useEffect(() => {
     getContacts().then((fl) => {
-      console.log("sunt fl",fl)
       setFriends(fl)
     })
 
@@ -87,6 +86,10 @@ export const ChatView = () => {
   const logout = () => {
     history.push('/logout');
   };
+
+  useEffect(() => {
+    dispatch(setActiveChat(null))
+  }, [user?.id])
 
   if (!user?.id) {
     return null
@@ -149,6 +152,6 @@ export const ChatView = () => {
       </Grid>
     </div>
   );
-};
+});
 
 export default FriendsListType;
