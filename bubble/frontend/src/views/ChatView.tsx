@@ -14,7 +14,7 @@ import logo from '../assets/logo-text-inline.png';
 
 import Profile from './components/Profile';
 import { getUser } from '../utils/users';
-import { BareChat } from '../firebase/chat';
+import { Chat } from '../firebase/Chat';
 import FriendsList from './components/FriendsList';
 import { getContacts, getFriends } from '../utils';
 import { User } from '../models/User.model';
@@ -131,9 +131,7 @@ export const ChatView: FC = () => {
           <FriendsList friends={friends} setFriends={setFriends}></FriendsList>
         </Grid>
         <Grid className="chatWindow" style={{ height:"100%"}} item xs={10}>
-          <BareChat meId = '1' otherId = '2'>
-            <h1>Chat area</h1>
-          </BareChat>
+          <Chat meId={'1'} otherId={'2'} /> 
         </Grid>
       </Grid>
       {/*  */}
