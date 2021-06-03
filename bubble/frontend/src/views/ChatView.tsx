@@ -88,7 +88,7 @@ export const ChatView = () => {
     history.push('/logout');
   };
 
-  if (!user) {
+  if (!user?.id) {
     return null
   }
 

@@ -36,7 +36,7 @@ export default function Profile() {
     setOpen(false);
   };
 
-  if (!user) {
+  if (!user?.id) {
     return <div></div>;
   }
 

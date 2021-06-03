@@ -5,14 +5,6 @@ import { Routes } from './Routes'
 import { getUser } from './utils/users'
 
 const App = () => {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    getUser().then((data) => {
-      dispatch(setUser(data))
-    })
-  }, [])
-
   return <Routes />
 }
 
