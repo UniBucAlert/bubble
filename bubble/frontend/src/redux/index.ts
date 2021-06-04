@@ -4,8 +4,8 @@ import { auth } from './features/auth'
 import { chat } from './features/chat'
 
 const reducer = combineReducers({
-    auth,
-    chat,
+  auth,
+  chat,
 })
 
 // Main App Store

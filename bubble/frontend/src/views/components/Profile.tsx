@@ -1,11 +1,11 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import { AccountCircle, Face } from '@material-ui/icons';
-import { useUser } from '../../hooks/useUser';
+import React from 'react'
+import { Grid } from '@material-ui/core'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import Modal from '@material-ui/core/Modal'
+import Backdrop from '@material-ui/core/Backdrop'
+import Fade from '@material-ui/core/Fade'
+import { AccountCircle, Face } from '@material-ui/icons'
+import { useUser } from '../../hooks/useUser'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,24 +20,24 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
-  })
-);
+  }),
+)
 
 export default function Profile() {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const classes = useStyles()
+  const [open, setOpen] = React.useState(false)
   const user = useUser()
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   if (!user?.id) {
-    return <div></div>;
+    return <div></div>
   }
 
   return (
@@ -88,5 +88,5 @@ export default function Profile() {
         </Fade>
       </Modal>
     </div>
-  );
+  )
 }

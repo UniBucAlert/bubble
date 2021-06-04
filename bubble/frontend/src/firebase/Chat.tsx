@@ -1,9 +1,8 @@
 import { fireDb, getServerTimestampField } from './firebaseUtils'
 import React, { useEffect, useState, useRef, useMemo } from 'react'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 import { useRerender } from '../hooks/useRerender'
-
 
 export type ChatProps = {
   meId: string
@@ -26,7 +25,7 @@ export type Message = {
 export const Chat = ({ meId, otherId }: ChatProps) => {
   const rerender = useRerender()
 
-  const chatId = useMemo(() => meId < otherId ? `${meId}_${otherId}` : `${otherId}_${meId}`, [meId, otherId])
+  const chatId = useMemo(() => (meId < otherId ? `${meId}_${otherId}` : `${otherId}_${meId}`), [meId, otherId])
 
   const messages = useRef<Message[]>([])
   const mostRecentMessage = useRef<Message>()
@@ -156,10 +155,9 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
     mostRecentMessage.current = undefined
     rerender()
 
-    // 
     createChat().then(() => {
       loadMoreMessages(true).then(() => {
-        startNewMessageListener().then((value) => listener.current = value)
+        startNewMessageListener().then((value) => (listener.current = value))
       })
     })
 
@@ -171,31 +169,53 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
   const [message, setMessage] = useState('')
 
   return (
-    <div style={{display:'flex', flex: 1, flexDirection: 'column', margin: '24px 40px'}}>
-      <div style={{display:'flex', flex: 1, flexDirection: 'column'}}>
-      {messages.current.slice().reverse().map((message) => {
-        const isMine = message.from === meId
+    <div style={{ display: 'flex', flex: 1, flexDirection: 'column', margin: '24px 40px' }}>
+      <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+        {messages.current
+          .slice()
+          .reverse()
+          .map((message) => {
+            const isMine = message.from === meId
 
-        return (
-        <div style={{width:'100%', display:'flex', justifyContent: isMine ? 'flex-end' : 'flex-start'}}><div style={{padding: '8px 12px', backgroundColor: isMine ? '#8ed4cb' : '#cccccc', borderRadius: 999, marginBottom: 16}}>{message.content}</div></div>
-      )})}
+            return (
+              <div style={{ width: '100%', display: 'flex', justifyContent: isMine ? 'flex-end' : 'flex-start' }}>
+                <div
+                  style={{
+                    padding: '8px 12px',
+                    backgroundColor: isMine ? '#8ed4cb' : '#cccccc',
+                    borderRadius: 999,
+                    marginBottom: 16,
+                  }}
+                >
+                  {message.content}
+                </div>
+              </div>
+            )
+          })}
       </div>
 
-      <form onSubmit={async (event) => {
-        event.preventDefault()
-        try {
-          await sendMessage(message)
-          setMessage('')
-        } catch (e) {
-          console.error(e);
-        }
-      }}>
-        <div style={{display:'grid', gridTemplateColumns: 'auto 100px'}}>
+      <form
+        onSubmit={async (event) => {
+          event.preventDefault()
+          try {
+            await sendMessage(message)
+            setMessage('')
+          } catch (e) {
+            console.error(e)
+          }
+        }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 100px' }}>
+          <TextField
+            id="message"
+            variant="filled"
+            placeholder="Type a message"
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            style={{ width: '100%' }}
+          />
 
-        <TextField id="message" variant="filled" placeholder="Type a message" value={message} onChange={(event) => setMessage(event.target.value)} style={{width: '100%'}} />
-
-        <Button type="submit">Send</Button>
-
+          <Button type="submit">Send</Button>
         </div>
       </form>
     </div>
