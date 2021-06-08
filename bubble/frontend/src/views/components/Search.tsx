@@ -1,8 +1,9 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import FriendsListType from '../ChatView';
 import SearchIcon from '@material-ui/icons/Search';
+
+import { getContacts } from '../../utils'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,41 +17,44 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-interface FriendType {
-    firstName: string,
-    lastName: string,
-    status: string
-}
-
-function Search({ friends }: FriendsListType) {
+function Search({ setFriends }: any) {
     const classes = useStyles();
 
-    React.useEffect(() => {
-        window.addEventListener('nv-enter', () => {
+    const handleSearch = () => {
+        getContacts().then((friends) => {
             let friendName = '';
             let input = document.getElementById('search-friend');
             if (input) {
                 friendName = (input as HTMLInputElement).value;
             }
 
-            let filterFunction = (friend: FriendType) => {
-                if (friendName === '') 
+            let filterFunction = (friend: any) => {
+                if (friendName === '')
                     return true;
-                if (friend['firstName'].toLowerCase().indexOf(friendName.toLowerCase()) !== -1)
+
+                let pos = friend['email'].search('@');
+                if (pos === -1)
                     return true;
-                if (friend['lastName'].toLowerCase().indexOf(friendName.toLowerCase()) !== -1)
+                
+                let firendEmail = friend['email'].slice(0, pos);
+                if (firendEmail.toLowerCase().indexOf(friendName.toLowerCase()) !== -1)
                     return true;
                 return false;
             }
 
-            // const newFriends = friends.filter(filterFunction);
-            // setFriends(friends);
+            const newFriends = friends.filter(filterFunction);
+            setFriends(newFriends);
         })
-    })
+    }
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
-            <TextField fullWidth={true} id="search-friend" label="Find friend" />
+            <TextField
+                fullWidth={true}
+                id="search-friend"
+                label="Find friend"
+                onChange={handleSearch}
+            />
         </form>
     );
 }
