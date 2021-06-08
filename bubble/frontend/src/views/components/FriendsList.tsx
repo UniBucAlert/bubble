@@ -39,7 +39,7 @@ export default function FriendsList({ friends, setFriends }: any) {
   return (
     <div className={classes.root} ref={containerRef}>
       <Paper square={true} elevation={3}>
-        <FriendsHeader friends={friends} setFriends={setFriends}></FriendsHeader>
+        <FriendsHeader setFriends={setFriends}></FriendsHeader>
         <Divider />
         <FixedSizeList height={height} width="100%" itemSize={70} itemCount={friends.length} itemData={friends}>
           {({ data, index, style }) => {
@@ -51,6 +51,7 @@ export default function FriendsList({ friends, setFriends }: any) {
                   // lastName={data[index].lastName}
                   email={data[index].email}
                   friend_status={data[index].friend_status}
+                  setFriends={setFriends}
                 ></Friend>
               </ListItem>
             )

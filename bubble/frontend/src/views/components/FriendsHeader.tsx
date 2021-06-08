@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function FriendsHeader({ friends, setFriends }: any) {
+function FriendsHeader({ setFriends }: any) {
     const classes = useStyles();
 
     return (
         <>
             <div className={classes.buttonContainer}>
-            <Search friends={friends}></Search>
+            <Search setFriends={setFriends}></Search>
                 <AddButton setFriends={setFriends}></AddButton>
             </div>
         </>

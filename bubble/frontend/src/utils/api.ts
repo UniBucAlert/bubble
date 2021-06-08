@@ -60,6 +60,7 @@ export const getContacts = async () => {
 
 
 };
+
 export const addFriend = async (userEmail: string) => {
   const response = await fetch(BACKEND_URL + '/friends/' + userEmail, {
     method: 'POST',
@@ -71,4 +72,17 @@ export const addFriend = async (userEmail: string) => {
   }
 
   return Promise.reject(response.status);
+}
+
+export const removeFriend = async (userEmail: string) => {
+    const response = await fetch(BACKEND_URL + '/friends/' + userEmail, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+    });
+
+    if (response.status === 200) {
+        return Promise.resolve("Friend deleted succesfully");
+    }
+
+    return Promise.reject(response.status);
 }

@@ -1,13 +1,17 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 import activeLogo from '../../assets/active.png';
 import inactiveLogo from '../../assets/inactive.png'
+import { removeFriend, getContacts } from '../../utils'
 
 import SentimentVerySatisfiedTwoToneIcon from '@material-ui/icons/SentimentVerySatisfiedTwoTone';
 import HelpTwoToneIcon from '@material-ui/icons/HelpTwoTone';
 import FaceIcon from '@material-ui/icons/Face';
+
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
@@ -30,19 +34,39 @@ const useStyles = makeStyles((theme) => ({
     }, 
     unaccepted:{
         color:'gray'
+    },
+    trash: {
+        marginLeft: 0,
+        marginRight: -300,
+        paddingRight: 10,
     }
 
 }));
 
 interface Props {
     email: string,
-    friend_status: string
+    friend_status: string,
+    setFriends: any
 }
 
 
 
-function Friend({ email, friend_status }: Props) {
+function Friend({ email, friend_status, setFriends }: Props) {
     const classes = useStyles();
+
+    const handleRemove = () => {
+        removeFriend(email).then((msg) => {
+            console.log(msg);
+
+            getContacts().then((fl) => {
+                setFriends(fl)
+            })
+
+        }).catch((msg) => {
+            console.log('Promise rejected ' + msg);
+        });
+    }
+
     return (
         <div className={classes.container}>
             {(() => {
@@ -56,6 +80,11 @@ function Friend({ email, friend_status }: Props) {
 
             })()}
             <ListItemText primary={`${email}`} />
+            <div className={classes.trash}>
+                <IconButton onClick={handleRemove}>
+                    <DeleteIcon />
+                </IconButton>
+            </div>
         </div>
     )
 }
