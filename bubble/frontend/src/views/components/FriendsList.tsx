@@ -51,6 +51,7 @@ export default function FriendsList({ friends, setFriends }: any) {
                   // lastName={data[index].lastName}
                   email={data[index].email}
                   friend_status={data[index].friend_status}
+                  setFriends={setFriends}
                 ></Friend>
               </ListItem>
             )
