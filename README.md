@@ -60,5 +60,5 @@ The user will, therefore, see exactly what the response is, ever since the inter
 - **[automatic testing](https://github.com/UniBucAlert/bubble/tree/main/bubble/backend/app/api/api_v1/routers/tests)** - minim 5 - over 15 tests only for the api (7 written/edited by us, the rest from the boilerplate) - 3p ✅ (TODO more)
 - **[bug reporting](https://github.com/UniBucAlert/bubble/issues?q=label%3Abug+)** - 1p ✅
 - **build tool** - used npm build tool to compress and make everything ready for deployment - 1p ✅
-- **[refactoring](https://github.com/UniBucAlert/bubble/commit/e36920ccca081f26a1333394c992ef115dc6b85a) (min 1), code standards - used PEP8 standard for Python3 and ESLint standard for Typescript / Javascript - 1p ✅
+- **[refactoring](https://github.com/UniBucAlert/bubble/commit/e36920ccca081f26a1333394c992ef115dc6b85a)** (min 1), code standards - used PEP8 standard for Python3 and ESLint standard for Typescript / Javascript - 1p ✅
 - **design patterns** - MVC for the backend and React Functional for the front - 1p - ✅
