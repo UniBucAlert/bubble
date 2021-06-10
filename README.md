@@ -27,11 +27,11 @@ The user will, therefore, see exactly what the response is, ever since the inter
 
 
 ## Who made Bubble?
-- Ciaușu Nicoleta
-- Preda Mihai-Dragoș
-- Radu Ștefan-Octavian
-- Tudor Raluca
-- Țifui Alexandru
+- [Ciaușu Nicoleta](https://github.com/mehanix/)
+- [Preda Mihai-Dragoș](https://github.com/PredaMihaiDragos/)
+- [Radu Ștefan-Octavian](https://github.com/Stefan-Radu/)
+- [Tudor Raluca](https://github.com/ralucatudor)
+- [Țifui Alexandru](https://github.com/tifui-alexandru)
 
 
 ## Features
