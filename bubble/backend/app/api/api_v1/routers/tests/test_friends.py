@@ -1,4 +1,4 @@
-def test_add_delete_get_friends(client, test_db,
+def test_add_delete_get_friends(client,
                                 test_user, user_token_headers,
                                 test_superuser, superuser_token_headers):
     # Add one friend.
@@ -44,3 +44,30 @@ def test_add_delete_get_friends(client, test_db,
     response = client.get("/api/v1/friends", headers=user_token_headers)
     assert response.status_code == 200
     assert response.json() == []
+
+def test_add_friend_not_found(client, user_token_headers):
+    # Try to add a friend.
+    random_email = "girejige@greoijgiore.com"
+    response = client.post("api/v1/friends/" + random_email, headers=user_token_headers)
+    assert response.status_code == 404
+
+def test_add_existent_friend(client, user_token_headers, test_superuser):
+    # Add one friend.
+    response = client.post("api/v1/friends/" + test_superuser.email, headers=user_token_headers)
+    assert response.status_code == 200
+
+    # Try to add same friend again.
+    response = client.post("api/v1/friends/" + test_superuser.email, headers=user_token_headers)
+    assert response.status_code == 403
+
+
+def test_delete_friend_not_found(client, user_token_headers):
+    # Try to add a friend.
+    random_email = "girejige@greoijgiore.com"
+    response = client.delete("api/v1/friends/" + random_email, headers=user_token_headers)
+    assert response.status_code == 404
+
+def test_delete_not_existent_friend(client, user_token_headers, test_superuser):
+    # Delete superuser friend without having him.
+    response = client.delete("api/v1/friends/" + test_superuser.email, headers=user_token_headers)
+    assert response.status_code == 403
