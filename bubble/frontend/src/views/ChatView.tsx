@@ -16,7 +16,7 @@ import Profile from './components/Profile'
 import { getUser } from '../utils/users'
 import { Chat } from '../firebase/Chat'
 import FriendsList from './components/FriendsList'
-import { getContacts, getFriends, isAuthenticated, logout } from '../utils'
+import { getContacts, getFriends, isAuthenticated,logout } from '../utils'
 import { User } from '../models/User.model'
 import '../index.css'
 
@@ -70,12 +70,11 @@ export const ChatView = React.memo(() => {
 
   const open = Boolean(anchorEl)
 
-    setInterval(() => {
-      if (!isAuthenticated()) {
-        console.log("A expirat tokenul, dam logout...")
-        logout();
-      }
-    }, 1000);
+  const myLogout = () => {
+    logout();
+    history.push("/logout")
+  }
+
 
   useEffect(() => {
     getContacts().then((fl) => {
@@ -133,7 +132,7 @@ export const ChatView = React.memo(() => {
               <MenuItem onClick={handleClose}>
                 <Profile></Profile>
               </MenuItem>
-              <MenuItem onClick={logout}>Log out</MenuItem>
+              <MenuItem onClick={myLogout}>Log out</MenuItem>
             </Menu>
           </div>
         </Toolbar>
