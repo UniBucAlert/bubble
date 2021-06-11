@@ -80,11 +80,15 @@ function Friend({ email, friend_status, setFriends }: Props) {
 
             })()}
             <ListItemText primary={`${email}`} />
-            <div className={classes.trash}>
+            {(() => {
+                if (friend_status == "mutuals" || friend_status == "i_friended") {
+                return (<div className={classes.trash}>
                 <IconButton onClick={handleRemove}>
                     <DeleteIcon />
                 </IconButton>
             </div>
+                )}
+            })()}
         </div>
     )
 }

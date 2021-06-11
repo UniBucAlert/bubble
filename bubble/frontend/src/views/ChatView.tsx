@@ -16,7 +16,7 @@ import Profile from './components/Profile'
 import { getUser } from '../utils/users'
 import { Chat } from '../firebase/Chat'
 import FriendsList from './components/FriendsList'
-import { getContacts, getFriends } from '../utils'
+import { getContacts, getFriends, isAuthenticated } from '../utils'
 import { User } from '../models/User.model'
 import '../index.css'
 
@@ -69,6 +69,13 @@ export const ChatView = React.memo(() => {
   const user = useUser()
 
   const open = Boolean(anchorEl)
+
+    setInterval(() => {
+      if (!isAuthenticated()) {
+        console.log("A expirat tokenul, dam logout...")
+        logout();
+      }
+    }, 1000);
 
   useEffect(() => {
     getContacts().then((fl) => {

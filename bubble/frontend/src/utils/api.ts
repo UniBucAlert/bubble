@@ -1,8 +1,9 @@
+import jwtDecode from 'jwt-decode';
 import { BACKEND_URL } from '../config';
 import { User } from '../models/User.model';
 
-
 export const getFriends = async () => {
+
   const response = await fetch(BACKEND_URL + "/friends", {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });

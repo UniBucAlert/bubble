@@ -1,4 +1,6 @@
 import decodeJwt from 'jwt-decode';
+import { useHistory } from 'react-router-dom';
+
 
 export const isAuthenticated = () => {
   const permissions = localStorage.getItem('permissions');
