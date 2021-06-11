@@ -1,11 +1,22 @@
 import decodeJwt from 'jwt-decode';
 
+
 export const isAuthenticated = () => {
   const permissions = localStorage.getItem('permissions');
+  try{
+  const token = decodeJwt(localStorage.getItem('token') as string) as any
+  const exp = token['exp']
+
+  if (Date.now() >= exp * 1000) {
+    return false;
+  }
   if (!permissions) {
     return false;
   }
   return permissions === 'user' || permissions === 'admin' ? true : false;
+  } catch (e) {
+    logout();
+  }
 };
 
 /**

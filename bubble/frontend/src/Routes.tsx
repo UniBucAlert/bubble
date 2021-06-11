@@ -52,7 +52,8 @@ export const Routes: FC = () => {
           path="/logout"
           render={() => {
             logout();
-            history.push('/');
+            console.log("bop")
+            history.push("/")
             return null;
           }}
         />

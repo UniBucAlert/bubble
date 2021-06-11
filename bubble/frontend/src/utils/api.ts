@@ -1,8 +1,10 @@
+import jwtDecode from 'jwt-decode';
 import { BACKEND_URL } from '../config';
 import { User } from '../models/User.model';
-
+import { isAuthenticated } from './auth';
 
 export const getFriends = async () => {
+
   const response = await fetch(BACKEND_URL + "/friends", {
     headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
   });
@@ -34,6 +36,10 @@ export const getFriendsOf = async () => {
 export const getContacts = async () => {
   // let i_friended = await getFriends()
   // let friended_me = await getFriendsOf()
+  console.log(isAuthenticated())
+  if (!isAuthenticated())
+    return null;
+
   return Promise.all([getFriends(), getFriendsOf()]).then(([i_friended, friended_me]) => {
 
 

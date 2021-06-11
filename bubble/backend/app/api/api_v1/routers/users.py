@@ -84,11 +84,13 @@ async def user_edit(
     user_id: int,
     user: UserEdit,
     db=Depends(get_db),
-    current_user=Depends(get_current_active_superuser),
+    current_user=Depends(get_current_active_user),
 ):
     """
     Update existing user
     """
+    if current_user.id != user_id:
+        current_user = get_current_active_superuser()
     return edit_user(db, user_id, user)
 
 
