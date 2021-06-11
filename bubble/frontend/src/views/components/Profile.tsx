@@ -4,24 +4,41 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
-import { AccountCircle, Face } from '@material-ui/icons'
+import { AccountCircle, Face, AlternateEmail } from '@material-ui/icons'
 import { useUser } from '../../hooks/useUser'
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    appBar: {
+      position: 'relative',
+      backgroundColor: '#333333',
+    },
+    title: {
+      fontSize: "18px",
+      flexGrow: 1,
+      fontWeight: "bold"
+    },
     modal: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
     },
-    paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+    logo: {
+      marginRight: theme.spacing(2),
     },
   }),
 )
@@ -65,37 +82,43 @@ export default function Profile() {
           timeout: 500,
         }}
       > */}
-         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title">Profile</h2>
-            <p id="transition-modal-description">
-              <Grid container spacing={3} alignItems="center">
-                <Grid item>
-                  <Face />
-                </Grid>
-                <Grid item md={true} sm={true} xs={true}>
-                  {user.email}
-                </Grid>
-              </Grid>
-              <Grid container spacing={3} alignItems="center">
-                <Grid item>
-                  <AccountCircle />
-                </Grid>
-                <Grid item md={true} sm={true} xs={true}>
-                  {user.first_name}
-                </Grid>
-              </Grid>
-              <Grid container spacing={3} alignItems="center">
-                <Grid item>
-                  <AccountCircle />
-                </Grid>
-                <Grid item md={true} sm={true} xs={true}>
-                  {user.last_name}
-                </Grid>
-              </Grid>
-            </p>
-          </div>
-      {/* </Modal> */}
+      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+          <Toolbar variant="dense">
+            <IconButton edge="start" className={classes.logo} color="inherit" aria-label="logo">
+              <AccountCircle />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              Profile
+          </Typography>
+          <IconButton edge="end"  color="inherit" aria-label="logo"  onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+
+          </Toolbar>
+        </AppBar>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <AlternateEmail />
+            </ListItemIcon>
+            <ListItemText primary="E-mail address" secondary={user.email} />
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemIcon>
+              <Face />
+            </ListItemIcon>
+            <ListItemText primary="First name" secondary={user.first_name == undefined ? "Not set" : user.first_name} />
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemIcon>
+              <Face />
+            </ListItemIcon>
+            <ListItemText primary="Last name" secondary={user.last_name == undefined ? "Not set" : user.last_name} />
+          </ListItem>
+        </List>
       </Dialog>
     </div>
   )

@@ -16,7 +16,7 @@ import Profile from './components/Profile'
 import { getUser } from '../utils/users'
 import { Chat } from '../firebase/Chat'
 import FriendsList from './components/FriendsList'
-import { getContacts, getFriends, isAuthenticated } from '../utils'
+import { getContacts, getFriends, isAuthenticated, logout } from '../utils'
 import { User } from '../models/User.model'
 import '../index.css'
 
@@ -89,10 +89,6 @@ export const ChatView = React.memo(() => {
 
   const handleClose = () => {
     setAnchorEl(null)
-  }
-
-  const logout = () => {
-    history.push('/logout')
   }
 
   useEffect(() => {

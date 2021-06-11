@@ -1,9 +1,9 @@
 import decodeJwt from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
 
 
 export const isAuthenticated = () => {
   const permissions = localStorage.getItem('permissions');
+  try{
   const token = decodeJwt(localStorage.getItem('token') as string) as any
   const exp = token['exp']
 
@@ -14,6 +14,9 @@ export const isAuthenticated = () => {
     return false;
   }
   return permissions === 'user' || permissions === 'admin' ? true : false;
+  } catch (e) {
+    logout();
+  }
 };
 
 /**
