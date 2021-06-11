@@ -6,6 +6,9 @@ import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 import { AccountCircle, Face } from '@material-ui/icons'
 import { useUser } from '../../hooks/useUser'
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
+import { TransitionProps } from '@material-ui/core/transitions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function Profile() {
   const classes = useStyles()
@@ -43,7 +53,7 @@ export default function Profile() {
   return (
     <div>
       <div onClick={handleOpen}>Profile</div>
-      <Modal
+      {/* <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -54,8 +64,8 @@ export default function Profile() {
         BackdropProps={{
           timeout: 500,
         }}
-      >
-        <Fade in={open}>
+      > */}
+         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Profile</h2>
             <p id="transition-modal-description">
@@ -85,8 +95,8 @@ export default function Profile() {
               </Grid>
             </p>
           </div>
-        </Fade>
-      </Modal>
+      {/* </Modal> */}
+      </Dialog>
     </div>
   )
 }

@@ -4,6 +4,12 @@ import { useHistory } from 'react-router-dom';
 
 export const isAuthenticated = () => {
   const permissions = localStorage.getItem('permissions');
+  const token = decodeJwt(localStorage.getItem('token') as string) as any
+  const exp = token['exp']
+
+  if (Date.now() >= exp * 1000) {
+    return false;
+  }
   if (!permissions) {
     return false;
   }

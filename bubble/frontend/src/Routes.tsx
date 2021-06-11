@@ -52,7 +52,7 @@ export const Routes: FC = () => {
           path="/logout"
           render={() => {
             logout();
-            // history.push("/") wtf de ce merge fara asta?
+            // history.push("/")  de ce merge fara asta?
             return null;
           }}
         />
