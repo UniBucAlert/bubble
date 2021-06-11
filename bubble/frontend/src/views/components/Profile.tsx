@@ -4,7 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
-import { AccountCircle, Face, AlternateEmail } from '@material-ui/icons'
+import { AccountCircle, Face, AlternateEmail, Edit } from '@material-ui/icons'
 import { useUser } from '../../hooks/useUser'
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
@@ -18,8 +18,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import  Button  from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,12 +92,17 @@ export default function Profile() {
             <Typography variant="h6" className={classes.title}>
               Profile
           </Typography>
-          <IconButton edge="end"  color="inherit" aria-label="logo"  onClick={handleClose}>
+          <Button autoFocus color="inherit" onClick={handleClose}>
+              Edit profile info
+            </Button>
+            <IconButton edge="end" color="inherit" aria-label="logo" onClick={handleClose}>
               <CloseIcon />
             </IconButton>
 
           </Toolbar>
         </AppBar>
+
+
         <List>
           <ListItem>
             <ListItemIcon>
@@ -117,6 +123,18 @@ export default function Profile() {
               <Face />
             </ListItemIcon>
             <ListItemText primary="Last name" secondary={user.last_name == undefined ? "Not set" : user.last_name} />
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemIcon>
+              <Face />
+            </ListItemIcon>
+            <ListItemText primary="Password" secondary="********" />
+            <ListItemSecondaryAction>
+              <IconButton edge="end" aria-label="delete">
+                <Edit />
+              </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
         </List>
       </Dialog>
