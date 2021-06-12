@@ -21,6 +21,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import  Button  from '@material-ui/core/Button';
+import EditProfile from './EditProfile'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,9 +93,11 @@ export default function Profile() {
             <Typography variant="h6" className={classes.title}>
               Profile
           </Typography>
-          <Button autoFocus color="inherit" onClick={handleClose}>
+          {/* <Button autoFocus color="inherit" onClick={handleClose}>
               Edit profile info
-            </Button>
+            </Button> */}
+                    <EditProfile/>
+
             <IconButton edge="end" color="inherit" aria-label="logo" onClick={handleClose}>
               <CloseIcon />
             </IconButton>
@@ -125,7 +128,7 @@ export default function Profile() {
             <ListItemText primary="Last name" secondary={user.last_name == undefined ? "Not set" : user.last_name} />
           </ListItem>
           <Divider />
-          <ListItem>
+          {/* <ListItem>
             <ListItemIcon>
               <Face />
             </ListItemIcon>
@@ -135,7 +138,7 @@ export default function Profile() {
                 <Edit />
               </IconButton>
             </ListItemSecondaryAction>
-          </ListItem>
+          </ListItem> */}
         </List>
       </Dialog>
     </div>
