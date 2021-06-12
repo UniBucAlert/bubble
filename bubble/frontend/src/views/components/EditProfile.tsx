@@ -7,13 +7,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { AuthState } from '../../redux/features/auth';
-import { useAppSelector } from '../../redux';
+import { useAppDispatch, useAppSelector } from '../../redux';
 import { useUser } from '../../hooks/useUser';
+import { editUser, getUser } from '../../utils/users';
+import { setUser } from '../../redux/features/auth'
+
 
 export default function EditProfile() {
   const [open, setOpen] = React.useState(false);
   const user = useAppSelector((state) => state.auth.user)
 
+  const dispatch = useAppDispatch()
   const [email, setEmail] = React.useState(user?.email);
   const [first_name, setFirstName] = React.useState(user?.first_name);
   const [last_name, setLastName] = React.useState(user?.last_name);
@@ -26,10 +30,14 @@ export default function EditProfile() {
     setOpen(false);
   };
 
-//   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setName(event.target.value);
-    
-//   };
+  const submit = () => {
+      editUser(user?.id,email,first_name,last_name).then(res =>  {
+        getUser().then((data) => {
+            dispatch(setUser(data))
+          })
+      }).then(res => handleClose())
+  }
+
 
   return (
     <div>
@@ -79,7 +87,7 @@ export default function EditProfile() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={submit} color="primary">
             Save
           </Button>
         </DialogActions>
