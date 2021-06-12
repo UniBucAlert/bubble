@@ -47,9 +47,7 @@ export default function EditProfile() {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit profile</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            All fields are mandatory.
-          </DialogContentText>
+
           <TextField
             autoFocus
             margin="dense"
