@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
@@ -20,7 +20,8 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import  Button  from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
+import EditProfile from './EditProfile'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,21 +69,11 @@ export default function Profile() {
     return <div></div>
   }
 
+  
   return (
     <div>
       <div onClick={handleOpen}>Profile</div>
-      {/* <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      > */}
+
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar variant="dense">
@@ -92,9 +83,8 @@ export default function Profile() {
             <Typography variant="h6" className={classes.title}>
               Profile
           </Typography>
-          <Button autoFocus color="inherit" onClick={handleClose}>
-              Edit profile info
-            </Button>
+
+            <EditProfile />
             <IconButton edge="end" color="inherit" aria-label="logo" onClick={handleClose}>
               <CloseIcon />
             </IconButton>
@@ -125,17 +115,7 @@ export default function Profile() {
             <ListItemText primary="Last name" secondary={user.last_name == undefined ? "Not set" : user.last_name} />
           </ListItem>
           <Divider />
-          <ListItem>
-            <ListItemIcon>
-              <Face />
-            </ListItemIcon>
-            <ListItemText primary="Password" secondary="********" />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete">
-                <Edit />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
+
         </List>
       </Dialog>
     </div>
