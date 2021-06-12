@@ -58,6 +58,7 @@ export default function EditProfile() {
             value={email}
             onChange={(e => setEmail(e.target.value))}
             fullWidth
+            disabled
           />
            <TextField
             autoFocus
