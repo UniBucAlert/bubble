@@ -1,4 +1,5 @@
-import { fireDb, getServerTimestampField } from './firebaseUtils'
+import { fireDb, getServerTimestampField,
+  timestampFromDate  } from './firebaseUtils'
 import React, { useEffect, useState, useRef, useMemo } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -79,6 +80,13 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
 
         messages.current = [...messages.current, ...messageArray]
         rerender()
+      }
+      else {
+        mostRecentMessage.current = {
+          from: '',
+          content: '',
+          timestamp: timestampFromDate(new Date(1999))
+        }
       }
     })
   }
