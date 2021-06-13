@@ -1,5 +1,5 @@
 import { fireDb, getServerTimestampField,
-  timestampFromDate  } from './firebaseUtils'
+  timestampFromDate, getServerTimestamp } from './firebaseUtils'
 import React, { useEffect, useState, useRef, useMemo } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -11,15 +11,11 @@ export type ChatProps = {
 }
 
 const LOAD_LIMIT = 7
-
-export type Timestamp = {
-  nanoseconds: number
-  seconds: number
-}
+const SECONDS_BUFFER: number = 5
 
 export type Message = {
   content: string
-  timestamp: Timestamp
+  timestamp: any
   from: string
 }
 
@@ -28,6 +24,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
 
   const chatId = useMemo(() => (meId < otherId ? `${meId}_${otherId}` : `${otherId}_${meId}`), [meId, otherId])
 
+  const liveMessage = useRef<Message>()
   const messages = useRef<Message[]>([])
   const mostRecentMessage = useRef<Message>()
   const [oldestMessage, setOldestMessage] = useState<Message>()
@@ -49,6 +46,20 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             messages.current = [mostRecentMessage.current, ...messages.current]
             rerender()
           }
+        }
+      })
+  }
+
+  const startLiveMessageListener = async () => {
+    return fireDb
+      .collection('chats')
+      .doc(chatId)
+      .onSnapshot((snapshot) => {
+        if (!snapshot.data()) return
+        let data = snapshot.data()?.[otherId]
+        if (liveMessage.current != data) {
+          liveMessage.current = data
+          rerender()
         }
       })
   }
@@ -76,17 +87,8 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
           }
         })
 
-        console.log('fetched message array', messageArray)
-
         messages.current = [...messages.current, ...messageArray]
         rerender()
-      }
-      else {
-        mostRecentMessage.current = {
-          from: '',
-          content: '',
-          timestamp: timestampFromDate(new Date(1999))
-        }
       }
     })
   }
@@ -104,8 +106,14 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
           }
 
           let newChat = {
-            user1Id: meId < otherId ? meId : otherId,
-            user2Id: meId > otherId ? meId : otherId,
+            meId: {
+              timestamp: timestampFromDate(new Date(1999)),
+              content: '',
+            },
+            otherId: {
+              timestamp: timestampFromDate(new Date(1999)),
+              content: '',
+            },
             createdAt: getServerTimestampField(),
           }
 
@@ -113,7 +121,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
         })
       })
       .then(() => {
-        console.log('Transaction successfully committed!')
+        // console.log('Transaction successfully committed!')
       })
       .catch((error) => {
         console.log('Transaction failed: ', error)
@@ -123,6 +131,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
   // send message in chat
   const sendMessage = async (content: string) => {
     let chat = fireDb.collection('chats').doc(chatId)
+    let newMessage = chat.collection('messages').doc()
 
     return fireDb
       .runTransaction(async (transaction) => {
@@ -132,45 +141,85 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             return false
           }
 
-          chat
-            .collection('messages')
-            .add({
-              content: content,
-              from: meId,
-              timestamp: getServerTimestampField(),
-            })
-            .then(() => {
-              console.log(`Added new message!`)
-            })
+          transaction.update(chat, {
+            [meId]: {
+              timestamp: timestampFromDate(new Date(1999)),
+              content: ''
+            }
+          })
+
+          transaction.set(newMessage, {
+            content: content,
+            from: meId,
+            timestamp: getServerTimestampField(),
+          })
         })
       })
       .then(() => {
-        console.log('Transaction successfully committed!')
+        // console.log('Sent new message')
         return true
       })
       .catch((error) => {
-        console.error('Error getting chat ', error)
+        console.error('Faild to send message', error)
         return false
       })
   }
 
-  const listener = useRef<any>()
+  // update the live message of this user
+  const updateLiveMessage = async(content: string) => {
+    let chat = fireDb.collection('chats').doc(chatId)
+
+    return chat
+      .update({
+        [meId]: {
+          timestamp: getServerTimestampField(),
+          content: content
+        }
+      })
+      .then(() => {
+        // console.log(`Live message update`)
+      })
+  }
+
+  const newMessageListener = useRef<any>()
+  const liveTypingListener = useRef<any>()
 
   useEffect(() => {
     // Reset everything when switching the chat from a user to another
+    const interval = setInterval(() => {
+      rerender()
+    }, 1000);
+
     setMessage('')
     messages.current = []
-    mostRecentMessage.current = undefined
+    mostRecentMessage.current = {
+      from: '',
+      content: '',
+      timestamp: timestampFromDate(new Date(1999))
+    }
+    liveMessage.current = {
+      from: otherId,
+      content: '',
+      timestamp: timestampFromDate(new Date(1999))
+    }
     rerender()
 
     createChat().then(() => {
       loadMoreMessages(true).then(() => {
-        startNewMessageListener().then((value) => (listener.current = value))
+        Promise.all([
+          startNewMessageListener(),
+          startLiveMessageListener(),
+        ]).then((values) => {
+          newMessageListener.current = values[0]
+          liveTypingListener.current = values[1]
+        })
       })
     })
 
     return () => {
-      listener.current?.()
+      newMessageListener.current?.()
+      liveTypingListener.current?.()
+      clearInterval(interval);
     }
   }, [meId, otherId])
 
@@ -199,15 +248,42 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
                 </div>
               </div>
             )
-          })}
+          }
+        )}
+        {(() => {
+          if (!liveMessage.current) return null
+          let tsNow: Date = getServerTimestamp().toDate()
+          let tsMess: Date = liveMessage.current?.timestamp.toDate()
+          let passedSeconds = (tsNow.getTime() - tsMess.getTime()) / 1000
+          if (passedSeconds < SECONDS_BUFFER) {
+            return (
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+                <div
+                  style={{
+                    padding: '8px 12px',
+                    backgroundColor: '#f78113',
+                    borderRadius: 999,
+                    marginBottom: 16,
+                  }}
+                >
+                  {liveMessage.current?.content}
+                </div>
+              </div>
+            )
+          }
+          else {
+            return null
+          }
+         })()
+        }
       </div>
 
       <form
         onSubmit={async (event) => {
           event.preventDefault()
           try {
-            await sendMessage(message)
             setMessage('')
+            await sendMessage(message)
           } catch (e) {
             console.error(e)
           }
@@ -219,7 +295,11 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             variant="filled"
             placeholder="Type a message"
             value={message}
-            onChange={(event) => setMessage(event.target.value)}
+            onChange={async (event) => {
+              let content = event.target.value
+              setMessage(content);
+              await updateLiveMessage(content)
+            }}
             style={{ width: '100%' }}
           />
 

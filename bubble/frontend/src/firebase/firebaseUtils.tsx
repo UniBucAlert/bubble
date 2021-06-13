@@ -20,6 +20,10 @@ export function getServerTimestampField () {
   return firebase.firestore.FieldValue.serverTimestamp()
 };
 
+export function getServerTimestamp () {
+  return firebase.firestore.Timestamp.now();
+};
+
 export function timestampFromDate (date: Date): firebase.firestore.Timestamp {
   return firebase.firestore.Timestamp.fromDate(date)
 };
