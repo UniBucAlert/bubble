@@ -4,13 +4,14 @@ import React, { useEffect, useState, useRef, useMemo } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useRerender } from '../hooks/useRerender'
+import { makeStyles } from '@material-ui/core/styles'
 
 export type ChatProps = {
   meId: string
   otherId: string
 }
 
-const LOAD_LIMIT = 7
+const LOAD_LIMIT = 100
 const SECONDS_BUFFER: number = 5
 
 export type Message = {
@@ -19,7 +20,15 @@ export type Message = {
   from: string
 }
 
+const useStyles = makeStyles((theme) => ({
+  gradient: {
+    background: `linear-gradient(148deg, rgba(255,116,224,1) 0%, rgba(168,107,255,1) 30%, rgba(134,216,255,1) 67%, rgba(161,255,188,1) 100%)`,
+    filter: `progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#3a3495",GradientType=1)`,
+  }
+}))
+
 export const Chat = ({ meId, otherId }: ChatProps) => {
+  const styles = useStyles()
   const rerender = useRerender()
 
   const chatId = useMemo(() => (meId < otherId ? `${meId}_${otherId}` : `${otherId}_${meId}`), [meId, otherId])
@@ -227,7 +236,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
 
   return (
     <div style={{ display: 'flex', flex: 1, flexDirection: 'column', margin: '24px 40px' }}>
-      <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flex: 1, flexDirection: 'column'}}>
         {messages.current
           .slice()
           .reverse()
@@ -259,9 +268,9 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             return (
               <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
                 <div
+                  className={styles.gradient}
                   style={{
                     padding: '8px 12px',
-                    backgroundColor: '#f78113',
                     borderRadius: 999,
                     marginBottom: 16,
                   }}
