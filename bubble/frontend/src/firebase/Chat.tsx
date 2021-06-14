@@ -37,6 +37,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
   const messages = useRef<Message[]>([])
   const mostRecentMessage = useRef<Message>()
   const [oldestMessage, setOldestMessage] = useState<Message>()
+  let interval: any
 
   const startNewMessageListener = async () => {
     return fireDb
@@ -83,7 +84,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
       fetchedMessages = chat.collection('messages').orderBy('timestamp', 'desc').startAfter(oldestMessage).limit(LOAD_LIMIT)
     }
 
-    return fetchedMessages.get().then((snapshot: any) => {
+    return fetchedMessages.get().then(async (snapshot: any) => {
       if (snapshot.docs.length) {
         setOldestMessage(snapshot.docs[snapshot.docs.length - 1])
         mostRecentMessage.current = snapshot.docs[0].data()
@@ -95,6 +96,13 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             from: doc.data().from,
           }
         })
+
+        let chatt: any = await chat.get()
+        messageArray = messageArray
+          .filter((doc: any) => {
+            console.log(chatt.data().deletedAt.toDate(), doc.timestamp.toDate(), doc.timestamp.toDate() < chatt.data().deletedAt.toDate())
+            return doc.timestamp.toDate() > chatt.data().deletedAt.toDate()
+          })
 
         messages.current = [...messages.current, ...messageArray]
         rerender()
@@ -193,9 +201,22 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
   const newMessageListener = useRef<any>()
   const liveTypingListener = useRef<any>()
 
+  const deleteChat = async() => {
+    let chat = fireDb.collection('chats').doc(chatId)
+
+    return chat
+      .update({
+        deletedAt: getServerTimestampField(),
+      })
+      .then(() => {
+        messages.current = []
+        rerender()
+      })
+  }
+
   useEffect(() => {
     // Reset everything when switching the chat from a user to another
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       rerender()
     }, 1000);
 
@@ -299,7 +320,8 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
           }
         }}
       >
-        <div style={{ height:'5%', display: 'grid', gridTemplateColumns: 'auto 100px' }}>
+        <div style={{ height:'5%', display: 'grid', gridTemplateColumns: '100px auto 100px' }}>
+          <Button style={{ width: '100px' }} onClick={deleteChat}>Del</Button>
           <TextField
             id="message"
             variant="filled"
