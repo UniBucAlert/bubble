@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -9,7 +9,7 @@ import Menu from '@material-ui/core/Menu'
 import { MenuProps } from '@material-ui/core/Menu/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Grid from '@material-ui/core/Grid'
-
+import Container from '@material-ui/core/Container';
 import logo from '../assets/logo-text-inline.png'
 
 import Profile from './components/Profile'
@@ -64,9 +64,11 @@ export const ChatView = React.memo(() => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [friends, setFriends] = React.useState([])
   const dispatch = useAppDispatch()
+  const containerRef = useRef(document.createElement('div'))
 
   const openedFriend = useSelector((state: AppState) => state.chat.friend)
   const user = useUser()
+  const [height, setHeight] = useState(0)
 
   const open = Boolean(anchorEl)
 
@@ -74,6 +76,12 @@ export const ChatView = React.memo(() => {
     logout();
     history.push("/logout")
   }
+
+
+  useEffect(() => {
+    setHeight(containerRef.current.getBoundingClientRect().height - 40)
+  }, [])
+
 
 
   useEffect(() => {
@@ -143,7 +151,6 @@ export const ChatView = React.memo(() => {
         <Grid style={{ height: '100%' }} item xs={2}>
           <FriendsList friends={friends} setFriends={setFriends}></FriendsList>
         </Grid>
-
         <div style={{ display: 'flex', flex: 1 }}>
           {openedFriend && <Chat meId={user.id.toString()} otherId={openedFriend.toString()} />}
         </div>

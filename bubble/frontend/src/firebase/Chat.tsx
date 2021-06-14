@@ -235,8 +235,9 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
   const [message, setMessage] = useState('')
 
   return (
-    <div style={{ display: 'flex', flex: 1, flexDirection: 'column', margin: '24px 40px' }}>
-      <div style={{ display: 'flex', flex: 1, flexDirection: 'column'}}>
+    <div style={{display: 'flex', flex: 1, flexDirection: 'column', margin: '24px 40px' }}>
+      <div style={{height:'50%', overflow:'scroll'}}>
+      <div style={{  display: 'flex', flex: 1, flexDirection: 'column'}}>
         {messages.current
           .slice()
           .reverse()
@@ -286,7 +287,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
          })()
         }
       </div>
-
+      </div>
       <form
         onSubmit={async (event) => {
           event.preventDefault()
@@ -298,7 +299,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
           }
         }}
       >
-        <div style={{ display: 'grid', gridTemplateColumns: 'auto 100px' }}>
+        <div style={{ height:'5%', display: 'grid', gridTemplateColumns: 'auto 100px' }}>
           <TextField
             id="message"
             variant="filled"
