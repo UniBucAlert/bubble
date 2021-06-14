@@ -59,7 +59,7 @@ The user will, therefore, see exactly what the response is, ever since the inter
 
 ## Project requirements
 - **[user stories](https://github.com/UniBucAlert/bubble/issues?q=label%3A%22User+Story%22+)** (min 10) - 17 in total, [backlog creation](https://github.com/UniBucAlert/bubble/issues) - 2p ✅
-- **design/arhitectura/UML** - 2p - TODO
+- **design/arhitectura/UML** - 2p - ✅
 - **source control** ([branch creation](https://github.com/UniBucAlert/bubble/branches), [merge/rebase](https://github.com/UniBucAlert/bubble/network), [min 10 commits](https://github.com/UniBucAlert/bubble/commits/main)) - ~100 commits in over 10 branches - 2p ✅
 - **[automatic testing](https://github.com/UniBucAlert/bubble/tree/main/bubble/backend/app/api/api_v1/routers/tests)** - minim 5 - over 15 tests only for the api (7 written/edited by us, the rest from the boilerplate) - 3p ✅
 - **[bug reporting](https://github.com/UniBucAlert/bubble/issues?q=label%3Abug+)** - 1p ✅
