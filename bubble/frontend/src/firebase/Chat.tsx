@@ -236,7 +236,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
 
   return (
     <div style={{display: 'flex', flex: 1, flexDirection: 'column', margin: '24px 40px' }}>
-      <div style={{height:'50%', overflow:'scroll'}}>
+      <div style={{height:'83vh', overflow:'scroll'}}>
       <div style={{  display: 'flex', flex: 1, flexDirection: 'column'}}>
         {messages.current
           .slice()
