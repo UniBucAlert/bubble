@@ -53,6 +53,10 @@ The user will, therefore, see exactly what the response is, ever since the inter
 - **[react-admin](https://github.com/marmelab/react-admin)** for the admin dashboard
 - **[Cloud Firestore](https://firebase.google.com/docs/firestore/)** for chat storage & syncing
 
+## UML Use Case Diagram 
+
+https://raw.githubusercontent.com/UniBucAlert/bubble/main/Bubble%20UML%20diagram.png
+
 ## Project requirements
 - **[user stories](https://github.com/UniBucAlert/bubble/issues?q=label%3A%22User+Story%22+)** (min 10) - 17 in total, [backlog creation](https://github.com/UniBucAlert/bubble/issues) - 2p ✅
 - **design/arhitectura/UML** - 2p - TODO
