@@ -30,11 +30,19 @@ export default function FriendsList({ friends, setFriends }: any) {
   const containerRef = useRef(document.createElement('div'))
   const [height, setHeight] = useState(0)
   const dispatch = useAppDispatch()
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   useEffect(() => {
     setHeight(containerRef.current.getBoundingClientRect().height - 40)
     console.log(friends)
   }, [])
+
+  const handleListItemClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    index: number,
+  ) => {
+    setSelectedIndex(index);
+  };
 
   return (
     <div className={classes.root} ref={containerRef}>
@@ -45,7 +53,11 @@ export default function FriendsList({ friends, setFriends }: any) {
           {({ data, index, style }) => {
             console.log(data, index)
             return (
-              <ListItem button style={style} key={index} onClick={() => dispatch(setActiveChat(data[index].id))}>
+              <ListItem button style={style} key={index} selected={selectedIndex == data[index].id}
+                  onClick={(event) => {
+                  handleListItemClick(event, data[index].id)
+                  dispatch(setActiveChat(data[index].id))
+              }}>
                 <Friend
                   // firstName={data[index].firstName}
                   // lastName={data[index].lastName}
