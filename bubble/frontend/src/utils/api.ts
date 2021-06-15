@@ -1,6 +1,4 @@
-import jwtDecode from 'jwt-decode';
 import { BACKEND_URL } from '../config';
-import { User } from '../models/User.model';
 import { isAuthenticated } from './auth';
 
 export const getFriends = async () => {
@@ -10,7 +8,7 @@ export const getFriends = async () => {
   });
 
   const data = await response.json();
-  console.log(data)
+  // console.log(data)
   if (data) {
     return data;
   }
@@ -24,7 +22,7 @@ export const getFriendsOf = async () => {
   });
 
   const data = await response.json();
-  console.log(data)
+  // console.log(data)
   if (data) {
     return data;
   }
@@ -36,7 +34,7 @@ export const getFriendsOf = async () => {
 export const getContacts = async () => {
   // let i_friended = await getFriends()
   // let friended_me = await getFriendsOf()
-  console.log(isAuthenticated())
+  // console.log(isAuthenticated())
   if (!isAuthenticated())
     return null;
 

@@ -1,12 +1,9 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 
 import Search from './Search'
 import AddButton from './AddButton'
-import FriendsListType from '../ChatView';
 
-// UNUSED -- TODO: CLEANUP
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {

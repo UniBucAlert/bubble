@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react'
-import { Grid } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Modal from '@material-ui/core/Modal'
-import Backdrop from '@material-ui/core/Backdrop'
-import Fade from '@material-ui/core/Fade'
-import { AccountCircle, Face, AlternateEmail, Edit } from '@material-ui/icons'
+import { AccountCircle, Face, AlternateEmail } from '@material-ui/icons'
 import { useUser } from '../../hooks/useUser'
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
@@ -19,8 +15,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Button from '@material-ui/core/Button';
 import EditProfile from './EditProfile'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -105,14 +99,14 @@ export default function Profile() {
             <ListItemIcon>
               <Face />
             </ListItemIcon>
-            <ListItemText primary="First name" secondary={user.first_name == undefined ? "Not set" : user.first_name} />
+            <ListItemText primary="First name" secondary={user.first_name === undefined ? "Not set" : user.first_name} />
           </ListItem>
           <Divider />
           <ListItem>
             <ListItemIcon>
               <Face />
             </ListItemIcon>
-            <ListItemText primary="Last name" secondary={user.last_name == undefined ? "Not set" : user.last_name} />
+            <ListItemText primary="Last name" secondary={user.last_name === undefined ? "Not set" : user.last_name} />
           </ListItem>
           <Divider />
 

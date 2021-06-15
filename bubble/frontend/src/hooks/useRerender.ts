@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export const useRerender = () => {
   const [_, set_] = useState<any>({})
