@@ -39,6 +39,8 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
   const [oldestMessage, setOldestMessage] = useState<Message>()
   let interval: any
 
+  const chatDiv = useRef(document.createElement("div"))
+
   const startNewMessageListener = async () => {
     return fireDb
       .collection('chats')
@@ -55,8 +57,10 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             }
             messages.current = [mostRecentMessage.current, ...messages.current]
             rerender()
+            console.log(chatDiv)
+            chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
           }
-        }
+        } 
       })
   }
 
@@ -70,6 +74,8 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
         if (liveMessage.current != data) {
           liveMessage.current = data
           rerender()
+          console.log(chatDiv)
+          chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
         }
       })
   }
@@ -106,6 +112,8 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
 
         messages.current = [...messages.current, ...messageArray]
         rerender()
+        console.log(chatDiv)
+        chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
       }
     })
   }
@@ -233,6 +241,8 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
       timestamp: timestampFromDate(new Date(1999))
     }
     rerender()
+    console.log(chatDiv)
+    chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
 
     createChat().then(() => {
       loadMoreMessages(true).then(() => {
@@ -257,7 +267,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
 
   return (
     <div style={{display: 'flex', flex: 1, flexDirection: 'column', margin: '24px 40px' }}>
-      <div style={{height:'83vh', overflow:'scroll'}}>
+      <div ref={chatDiv} style={{height:'83vh', overflow:'scroll'}}>
       <div style={{  display: 'flex', flex: 1, flexDirection: 'column'}}>
         {messages.current
           .slice()
