@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -6,17 +6,14 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
-import { MenuProps } from '@material-ui/core/Menu/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container';
 import logo from '../assets/logo-text-inline.png'
 
 import Profile from './components/Profile'
-import { getUser } from '../utils/users'
 import { Chat } from '../firebase/Chat'
 import FriendsList from './components/FriendsList'
-import { getContacts, getFriends, isAuthenticated,logout } from '../utils'
+import { getContacts, logout } from '../utils'
 import { User } from '../models/User.model'
 import '../index.css'
 
@@ -64,11 +61,9 @@ export const ChatView = React.memo(() => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [friends, setFriends] = React.useState([])
   const dispatch = useAppDispatch()
-  const containerRef = useRef(document.createElement('div'))
 
   const openedFriend = useSelector((state: AppState) => state.chat.friend)
   const user = useUser()
-  const [height, setHeight] = useState(0)
 
   const open = Boolean(anchorEl)
 
@@ -76,13 +71,6 @@ export const ChatView = React.memo(() => {
     logout();
     history.push("/logout")
   }
-
-
-  useEffect(() => {
-    setHeight(containerRef.current.getBoundingClientRect().height - 40)
-  }, [])
-
-
 
   useEffect(() => {
     getContacts().then((fl) => {

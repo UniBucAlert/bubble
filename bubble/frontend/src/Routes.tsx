@@ -2,7 +2,6 @@ import * as dotenv from 'dotenv';
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { Login, SignUp, PrivateRoute } from './views';
 import { Admin } from './admin';
@@ -30,13 +29,7 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) => ({
-  // Styling global custom
-  app: {},
-}));
-
 export const Routes: FC = () => {
-  const classes = useStyles();
   const history = useHistory();
 
   return (
@@ -58,10 +51,6 @@ export const Routes: FC = () => {
           }}
         />
         <PrivateRoute  path="/" component={ChatView} /> 
-
-        {/* in home e ecranul default din fastapi, TODO: sterge-l */}
-        {/* <Route exact path="/" component={Home} />  */}
-
       </ThemeProvider>
     </Switch>
 

@@ -57,7 +57,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
             }
             messages.current = [mostRecentMessage.current, ...messages.current]
             rerender()
-            console.log(chatDiv)
+            // console.log(chatDiv)
             chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
           }
         } 
@@ -74,7 +74,7 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
         if (liveMessage.current != data) {
           liveMessage.current = data
           rerender()
-          console.log(chatDiv)
+          // console.log(chatDiv)
           chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
         }
       })
@@ -106,13 +106,13 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
         let chatt: any = await chat.get()
         messageArray = messageArray
           .filter((doc: any) => {
-            console.log(chatt.data().deletedAt.toDate(), doc.timestamp.toDate(), doc.timestamp.toDate() < chatt.data().deletedAt.toDate())
+            // console.log(chatt.data().deletedAt.toDate(), doc.timestamp.toDate(), doc.timestamp.toDate() < chatt.data().deletedAt.toDate())
             return doc.timestamp.toDate() > chatt.data().deletedAt.toDate()
           })
 
         messages.current = [...messages.current, ...messageArray]
         rerender()
-        console.log(chatDiv)
+        // console.log(chatDiv)
         chatDiv.current.scrollTop = chatDiv.current.scrollHeight - chatDiv.current.clientHeight
       }
     })
@@ -126,20 +126,21 @@ export const Chat = ({ meId, otherId }: ChatProps) => {
       .runTransaction(async (transaction) => {
         return transaction.get(chat).then((data) => {
           if (data.exists) {
-            console.warn('chat already exists')
+            // console.warn('chat already exists')
             return
           }
 
           let newChat = {
-            meId: {
+            [meId]: {
               timestamp: timestampFromDate(new Date(1999)),
               content: '',
             },
-            otherId: {
+            [otherId]: {
               timestamp: timestampFromDate(new Date(1999)),
               content: '',
             },
             createdAt: getServerTimestampField(),
+            deletedAt: timestampFromDate(new Date(1999)),
           }
 
           chat.set(newChat, { merge: true })

@@ -1,7 +1,6 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import SearchIcon from '@material-ui/icons/Search';
 
 import { getContacts } from '../../utils'
 

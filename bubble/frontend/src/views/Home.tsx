@@ -3,34 +3,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { isAuthenticated } from '../utils/auth';
 
-// Pe asta l am lasat aici ca exemplu, cand nu mai avem nevoie de el trebuie sters TODO
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   link: {
     color: '#61dafb',
   },
 }));
 
 export const Home: FC = () => {
-  const [message, setMessage] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [message] = useState<string>('');
+  const [error] = useState<string>('');
   const classes = useStyles();
-
-  // const queryBackend = async () => {
-  //   try {
-  //     const message = await getMessage();
-  //     setMessage(message);
-  //   } catch (err) {
-  //     setError(err);
-  //   }
-  // };
 
   return (
     <>
-      {/* {!message && !error && (
-        // <a className={classes.link} href="#" onClick={() => queryBackend()}>
-        //   Click to make request to backend
-        // </a>
-      // )} */}
       {message && (
         <p>
           <code>{message}</code>
@@ -44,9 +29,6 @@ export const Home: FC = () => {
       <a className={classes.link} href="/admin">
         Admin Dashboard
       </a>
-      {/* <a className={classes.link} href="/protected">
-        Protected Route
-      </a> */}
       {isAuthenticated() ? (
         <a className={classes.link} href="/logout">
           Logout

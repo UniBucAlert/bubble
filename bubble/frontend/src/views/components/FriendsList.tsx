@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import ListItem from '@material-ui/core/ListItem'
-import { FixedSizeList, ListChildComponentProps } from 'react-window'
+import { FixedSizeList } from 'react-window'
 import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
 
 import Friend from './Friend'
 import FriendsHeader from './FriendsHeader'
-import { User } from '../../models/User.model'
-import Typography from '@material-ui/core/Typography'
 import { useAppDispatch } from '../../redux'
 import { setActiveChat } from '../../redux/features/chat'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: '100%',
@@ -34,7 +32,7 @@ export default function FriendsList({ friends, setFriends }: any) {
 
   useEffect(() => {
     setHeight(containerRef.current.getBoundingClientRect().height - 40)
-    console.log(friends)
+    // console.log(friends)
   }, [])
 
   const handleListItemClick = (
@@ -51,7 +49,7 @@ export default function FriendsList({ friends, setFriends }: any) {
         <Divider />
         <FixedSizeList height={height} width="100%" itemSize={70} itemCount={friends.length} itemData={friends}>
           {({ data, index, style }) => {
-            console.log(data, index)
+            // console.log(data, index)
             return (
               <ListItem button style={style} key={index} selected={selectedIndex == data[index].id}
                   onClick={(event) => {
